@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="operation" table="x_kpmg3_mid_server_file_configuration">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="target_table" table="x_kpmg3_mid_server_file_configuration">
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
@@ -12,13 +12,13 @@
 	return '';  // return the calculated value
 
 })(current);]]></calculation>
-        <choice>1</choice>
+        <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label>Operation</column_label>
+        <column_label>Target Table</column_label>
         <comments/>
         <create_roles/>
-        <default_value>import_and_attach</default_value>
+        <default_value>sys_data_source</default_value>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
@@ -28,18 +28,18 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>operation</element>
+        <element>target_table</element>
         <element_reference>false</element_reference>
         <foreign_database/>
-        <internal_type display_value="Choice">choice</internal_type>
+        <internal_type display_value="Reference">reference</internal_type>
         <mandatory>false</mandatory>
-        <max_length>40</max_length>
+        <max_length>32</max_length>
         <name>x_kpmg3_mid_server_file_configuration</name>
         <next_element/>
         <primary>false</primary>
-        <read_only>true</read_only>
+        <read_only>false</read_only>
         <read_roles/>
-        <reference/>
+        <reference display_value="" name="sys_db_object">sys_db_object</reference>
         <reference_cascade_rule/>
         <reference_floats>false</reference_floats>
         <reference_key/>
@@ -51,18 +51,18 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-        <sys_created_on>2017-09-16 18:04:47</sys_created_on>
+        <sys_created_on>2017-09-16 22:02:00</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
-        <sys_id>abfeb87013194b00e9c059722244b02d</sys_id>
-        <sys_mod_count>2</sys_mod_count>
-        <sys_name>Operation</sys_name>
+        <sys_id>809575fc13594b00e9c059722244b0b6</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Target Table</sys_name>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
-        <sys_update_name>sys_dictionary_x_kpmg3_mid_server_file_configuration_operation</sys_update_name>
+        <sys_update_name>sys_dictionary_x_kpmg3_mid_server_file_configuration_target_table</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-16 22:03:12</sys_updated_on>
+        <sys_updated_on>2017-09-16 22:02:32</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

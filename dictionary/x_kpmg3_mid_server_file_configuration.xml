@@ -6,9 +6,9 @@
         <element label="File Name" max_length="100" name="file_name" type="string"/>
         <element choice="1" label="File Selection Criteria" max_length="40" name="file_selection_criteria" type="choice">
             <choice>
-                <element label="File Name" value="File Name"/>
-                <element label="File Name Contains" value="File Name Contains"/>
-                <element label="Regular Expression" value="Regular Expression"/>
+                <element label="File Name" value="file_name"/>
+                <element label="File Name Contains" value="file_name_contains"/>
+                <element label="Regular Expression" value="reg_exp"/>
             </choice>
         </element>
         <element choice="1" label="File Type" max_length="40" name="file_type" type="choice">
@@ -20,15 +20,19 @@
         </element>
         <element label="Folder Location" max_length="100" name="folder_location" type="string"/>
         <element label="Name" max_length="100" name="name" type="string"/>
-        <element choice="1" default="Import and Transform" label="Operation" max_length="40" name="operation" read_only="true" type="choice">
+        <element choice="1" default="import_and_attach" label="Operation" max_length="40" name="operation" read_only="true" type="choice">
             <choice>
-                <element label="Import and Attach" value="Import and Attach"/>
-                <element label="Import and Transform" value="Import and Transform"/>
+                <element label="Import and Attach" value="import_and_attach"/>
+                <element label="Import and Transform" value="import_and_transform"/>
             </choice>
         </element>
         <element label="Regular Expression" max_length="100" name="regular_expression" type="string"/>
+        <element default="sys_data_source" label="Target Table" max_length="32" name="target_table" reference="sys_db_object" type="reference"/>
         <element label="Zipped" max_length="40" name="zipped" type="boolean"/>
         <index name="index">
+            <element name="target_table"/>
+        </index>
+        <index name="index2">
             <element name="data_source"/>
         </index>
     </element>
