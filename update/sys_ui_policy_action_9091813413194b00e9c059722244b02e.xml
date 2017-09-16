@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_policy_action">
+    <sys_ui_policy_action action="INSERT_OR_UPDATE">
+        <disabled>ignore</disabled>
+        <field>data_source</field>
+        <mandatory>true</mandatory>
+        <sys_class_name>sys_ui_policy_action</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-16 18:14:21</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>9091813413194b00e9c059722244b02e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>data_source</sys_name>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sys_ui_policy_action_9091813413194b00e9c059722244b02e</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-09-16 18:14:21</sys_updated_on>
+        <table>x_kpmg3_mid_server_file_configuration</table>
+        <ui_policy display_value="Make Data Source Mandatory">1c71413413194b00e9c059722244b018</ui_policy>
+        <visible>ignore</visible>
+    </sys_ui_policy_action>
+</record_update>

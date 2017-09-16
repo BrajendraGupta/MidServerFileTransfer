@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="File Configuration" max_length="40" name="x_kpmg3_mid_server_file_configuration" type="collection">
+        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Data Source" max_length="32" name="data_source" reference="sys_data_source" type="reference"/>
+        <element label="File Name" max_length="100" name="file_name" type="string"/>
+        <element choice="1" label="File Selection Criteria" max_length="40" name="file_selection_criteria" type="choice">
+            <choice>
+                <element label="File Name" value="File Name"/>
+                <element label="File Name Contains" value="File Name Contains"/>
+                <element label="Regular Expression" value="Regular Expression"/>
+            </choice>
+        </element>
+        <element choice="1" label="File Type" max_length="40" name="file_type" type="choice">
+            <choice>
+                <element label="CSV" value="CSV"/>
+                <element label="Excel(.xlsx/.xls)" value="Excel"/>
+                <element label="XML" value="XML"/>
+            </choice>
+        </element>
+        <element label="Folder Location" max_length="100" name="folder_location" type="string"/>
+        <element label="Name" max_length="100" name="name" type="string"/>
+        <element choice="1" default="Import and Transform" label="Operation" max_length="40" name="operation" read_only="true" type="choice">
+            <choice>
+                <element label="Import and Attach" value="Import and Attach"/>
+                <element label="Import and Transform" value="Import and Transform"/>
+            </choice>
+        </element>
+        <element label="Regular Expression" max_length="100" name="regular_expression" type="string"/>
+        <element label="Zipped" max_length="40" name="zipped" type="boolean"/>
+        <index name="index">
+            <element name="data_source"/>
+        </index>
+    </element>
+</database>
