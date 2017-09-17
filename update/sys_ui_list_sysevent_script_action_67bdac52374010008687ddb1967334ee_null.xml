@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="sysevent_script_action" relationship="67bdac52374010008687ddb1967334ee" sys_domain="global" table="sys_update_version" version="2" view="">
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>sys_update_version</name>
+            <parent>sysevent_script_action</parent>
+            <position/>
+            <relationship display_value="Versions">67bdac52374010008687ddb1967334ee</relationship>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-09-17 08:55:40</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>3f4bc08513dd4b00e9c059722244b0c5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sys_update_version</sys_name>
+            <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+            <sys_update_name>sys_ui_list_sysevent_script_action_67bdac52374010008687ddb1967334ee_null</sys_update_name>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-09-17 08:55:40</sys_updated_on>
+            <sys_user display_value="Brajendra Gupta">59eb4ff14f7d4600a5eee0024210c794</sys_user>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

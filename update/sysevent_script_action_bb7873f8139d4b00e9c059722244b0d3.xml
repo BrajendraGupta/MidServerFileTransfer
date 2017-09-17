@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_kpmg3_mid_server.msfi.process.ds</event_name>
+        <name>MSFI_Process Data Source</name>
+        <order>100</order>
+        <script><![CDATA[processDataSource();
+
+function processDataSource(){
+	//event.parm1 = file configuration object
+	//event.parm2 = attachment record object
+	var snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFI_Process Data Source');
+	snLog.includeTimestamp();
+	snLog.logInfo('Begin Event Processing');
+	snLog.logInfo('Event.parm1'+event.parm1);
+	snLog.logInfo('Event.parm2'+event.parm2);
+	//Delete any other attachments on the data source
+	var otherAttachments = new GlideRecord('sys_attachment');
+	otherAttachments.addQuery('table_name', 'sys_data_source');
+	otherAttachments.addQuery('table_sys_id', event.parm1.data_source);
+	otherAttachments.addQuery('sys_id','!=', event.parm2.sys_id);
+	otherAttachments.deleteMultiple();
+	
+	//Start loading the data in to an import set
+	//gs.log('Loading File ' + sourceDS.name, 'multiftp');
+	var loader = new global.GlideImportSetLoader();
+	var importSetGr = loader.getImportSetGr(sourceDS);
+	var ranload = loader.loadImportSetTable(importSetGr, sourceDS);
+	
+	//gs.log('Running Transform map ' + sourceDS.name, 'multiftp');
+	
+	//Start the transform on the import set
+	var t = new global.GlideImportSetTransformer();
+	t.transformAllMaps(importSetGr);
+}]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-17 07:35:10</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>bb7873f8139d4b00e9c059722244b0d3</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>MSFI_Process Data Source</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sysevent_script_action_bb7873f8139d4b00e9c059722244b0d3</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-09-17 08:37:46</sys_updated_on>
+    </sysevent_script_action>
+</record_update>
