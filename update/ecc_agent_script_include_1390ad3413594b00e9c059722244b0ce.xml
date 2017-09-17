@@ -10,13 +10,14 @@ MSFT_FileImport.prototype = {
 		this._setPackageCalls();//setup package calls
 		this.probe_params = this._getProbeParams(); // get all probe parameters
 		
-		this.debug = gs.getProperty("MSFT.MID.SERVER") == 'true';
+		this.debug = true; //gs.getProperty("x_kpmg3_mid_server.MSFT.MID.SERVER");
 		this.debugPrefix = "DEBUG-MSFT: ";
 	},
 	
 	
 	importFiles: function(){
 		var operation = this.probe_params.operation;
+		var file_type = this.probe_params.file_type;
 		var fileListArray = this._getListOfFiles();
 		var encData = '';
 		//3.3
@@ -29,7 +30,6 @@ MSFT_FileImport.prototype = {
 			}
  			*/
 		} else if (operation == "import_and_attach") {
-			this._midLog("List of files: " + fileListArray + "length: "+ fileListArray.length);
 			if(fileListArray.length != 0){
 				var inputstream;
 				for(var i in fileListArray){
@@ -41,15 +41,15 @@ MSFT_FileImport.prototype = {
 					var fileName = fileListArray[i].getName();
 					var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(filePath), "UTF-8"));
 					//Read file
-					if(this.file_type == 'XML'){
+					if(file_type == 'XML'){
 						//important note: need to supply character set as argument to FileInputStream function otherwise special charcter are not encoded properly
 						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
 					}
-					else if(this.file_type == 'CSV'){
+					else if(file_type == 'CSV'){
 						//important note: if file has sepcial charcter and specific encoding is required supply as argument to FileInputStream
 						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
 					}
-					else if(this.file_type == 'EXCEL'){
+					else if(file_type == 'EXCEL'){
 						// uses OOB windows encoding
 						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
 					}
@@ -62,7 +62,7 @@ MSFT_FileImport.prototype = {
 					
 					//create data chunk
 					var buffer ='';
-					while ((buffer = inputStream.readLine()) != null) {
+					while ((buffer = inputstream.readLine()) != null) {
 						encData = encData + buffer + '\n';
 					}
 					
@@ -92,8 +92,8 @@ MSFT_FileImport.prototype = {
 		var charset = ctcr.charset;
 		
 		//Setup endpoint
-		var url = this.instance_url + "api/now/attachment/file?table_name=" +
-		this.probe_params.target_table + "&table_sys_id=" + this.probe_params.target_sys_id +
+		var url = this.instance_host + "api/now/attachment/file?table_name=" +
+		this.probe_params.target_table + "&table_sys_id=" + this.probe_params.target_record +
 		"&file_name=" + fileName;
 		
 		this._midLog("Attachment URL: " + url);
@@ -146,7 +146,7 @@ MSFT_FileImport.prototype = {
 				response.charset = '';
 				response.content_type = "application/octet-stream";
 			}
-			this._midLog("File ContentType and Charset"+ response);
+			this._midLog("File ContentType and Charset"+ new JSON().encode(response));
 			return response;
 		},
 		
@@ -156,6 +156,7 @@ MSFT_FileImport.prototype = {
 				var folderLocation = new this.File(this.probe_params.folder_location);
 				var file_selection = this.probe_params.file_selection_criteria;
 				var jsFileID = this.probe_params.file_name.toString();
+				var regex_pattern = this.probe_params.regex_pattern;
 				var fileListArray, jsFileFilter, fileFilter;
 				
 				//Here we check if mode of operation is "static filename"
@@ -196,11 +197,11 @@ MSFT_FileImport.prototype = {
 					fileListArray = folderLocation.listFiles(fileFilter);
 				}
 				//Here we check if mode of operation is "file name containing regular expression"
-				else if(file_selection == 'Reg_exp'){
+				else if(file_selection == 'reg_exp'){
 					
 					jsFileFilter = {
 						accept: function(fileObject, fileName) {
-							var re = new RegExp(jsFileID);
+							var re = new RegExp(regex_pattern);
 							fileName = fileName + ''; // making sure we have the file name here.
 							if (re.test(fileName)) {
 								return true;
@@ -220,10 +221,16 @@ MSFT_FileImport.prototype = {
 				}
 				this._midLog("List of files in "+folderLocation+":"+fileListArray);
 				fileListArray.sort();
+				
+				//print file list
+				for(var bg in fileListArray){
+					this._midLog("File Founds is: "+fileListArray[bg]);
+				}
+				
 				return fileListArray;
 			}
 			catch(e){
-				this._midLog("Error in the getting File Names");
+				this._midLog("Error in the getting File Names"+e.getMessage());
 				return false;
 			}
 		},
@@ -256,7 +263,12 @@ MSFT_FileImport.prototype = {
 			this.Encrypter = Packages.com.glide.util.Encrypter;
 			this.Charset = Packages.java.nio.charset.Charset;
 			
-			
+			var url = new this.URL(probe.getParameter("instance_name"));
+			this.instance_host = url.getHost();
+			var port = url.getPort();
+			this.instance_port = (port == -1) ? 443 : port;
+			this._midLog('Instance Host: ' + this.instance_host);
+			this._midLog('Instance Port: ' + this.instance_port);
 			
 		},
 		
@@ -268,24 +280,15 @@ MSFT_FileImport.prototype = {
 				probe_params.file_selection_criteria = probe.getParameter("file_selection_criteria");
 				probe_params.operation = probe.getParameter("operation");
 				probe_params.target_table = probe.getParameter("target_table");
-				probe_params.target_sys_id = probe.getParameter("target_sys_id");
-				probe_params.regular_expression = probe.getParameter("regular_expression");
-				probe_params.probe_name = probe.getParameter("name");
+				probe_params.target_record = probe.getParameter("target_record");
+				probe_params.regex_pattern = probe.getParameter("regular_expression");
+				probe_params.probe_name = probe.getParameter("config_name");
 				probe_params.zipped = probe.getParameter("zipped");
 				probe_params.instance_name = probe.getParameter("instance_name");
 				probe_params.instance_username = probe.getParameter("mid.instance.username");
 				probe_params.instance_password = probe.getParameter("mid.instance.password");
 				
-				
-				var url = new this.URL(probe.getParameter("instance_name"));
-				this.instance_host = url.getHost();
-				var port = url.getPort();
-				this.instance_port = (port == -1) ? 443 : port;
-				this._midLog('Instance Host: ' + this.instance_host);
-				this._midLog('Instance Port: ' + this.instance_port);
-				
-				
-				this._midLog("The config JSON mapping that was sent: "+probe_params);
+				this._midLog("The config JSON mapping that was sent: "+new JSON().encode(probe_params));
 				return probe_params;
 			},
 			
@@ -304,7 +307,7 @@ MSFT_FileImport.prototype = {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1390ad3413594b00e9c059722244b0ce</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>MSFT_FileImport</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -313,6 +316,6 @@ MSFT_FileImport.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>ecc_agent_script_include_1390ad3413594b00e9c059722244b0ce</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-17 01:35:33</sys_updated_on>
+        <sys_updated_on>2017-09-17 06:57:40</sys_updated_on>
     </ecc_agent_script_include>
 </record_update>

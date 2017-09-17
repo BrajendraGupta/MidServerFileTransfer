@@ -12,8 +12,8 @@ MSFT_FileImport.prototype = {
 	initialize: function(configName, target_record) {
 		this.configName = configName; // file configuration Name
 		this.target_record =  target_record; // sys_id of record to attach the imported file(s)
-		this.mid_server = gs.getProperty('MSFT.MID.SERVER');
-		this.snLog = new global.GSLog('MSFT.DEBUG.STATUS', 'MSFT_FileImport');
+		this.mid_server = gs.getProperty('x_kpmg3_mid_server.MSFT.MID.SERVER');
+		this.snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_FileImport');
 		this.snLog.includeTimestamp();
 	},
 	
@@ -22,6 +22,7 @@ MSFT_FileImport.prototype = {
 		var jspr = new global.JavascriptProbe(this.mid_server);
 		jspr.setName('MSFT.FileImport');
 		jspr.setSource('MSFT_FileImport');
+		jspr.setJavascript('var msfi = new MSFT_FileImport(); result = msfi.importFiles();');
 		jspr.addParameter("instance_name",gs.getProperty("glide.servlet.uri"));
 		
 		//add file information
@@ -30,6 +31,7 @@ MSFT_FileImport.prototype = {
 			jspr.addParameter(v,dto[v]);
 		}
 		jspr.create();
+		this.snLog.logInfo("MSFT.FileImport probe submitted");
 	},
 	
 	getAllParams: function(){
@@ -58,7 +60,7 @@ MSFT_FileImport.prototype = {
 			// prepare json of file name and their values
 			var grjson = {};
 				
-				grjson.name = gr.getValue('name');
+				grjson.config_name = gr.getValue('name');
 				grjson.file_name = gr.getValue('file_name');
 				grjson.folder_location = gr.getValue('folder_location');
 				grjson.file_selection_criteria = gr.getValue('file_selection_criteria');
@@ -68,7 +70,6 @@ MSFT_FileImport.prototype = {
 				grjson.zipped = gr.zipped.toString();
 				grjson.target_table = gr.target_table.name.toString();
 				grjson.target_record = target_record;
-				
 				this.snLog.logInfo("File Configuration for "+this.configName+": "+new global.JSON().encode(grjson));
 				return grjson;
 			}
@@ -84,7 +85,7 @@ MSFT_FileImport.prototype = {
         <sys_created_on>2017-09-16 18:34:34</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>dc720d3413194b00e9c059722244b0d1</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>31</sys_mod_count>
         <sys_name>MSFT_FileImport</sys_name>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy>read</sys_policy>
@@ -92,6 +93,6 @@ MSFT_FileImport.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sys_script_include_dc720d3413194b00e9c059722244b0d1</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-17 02:58:43</sys_updated_on>
+        <sys_updated_on>2017-09-17 06:23:52</sys_updated_on>
     </sys_script_include>
 </record_update>

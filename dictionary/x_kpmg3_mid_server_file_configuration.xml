@@ -14,7 +14,7 @@
         <element choice="1" label="File Type" mandatory="true" max_length="40" name="file_type" type="choice">
             <choice>
                 <element label="CSV" value="CSV"/>
-                <element label="Excel(.xlsx/.xls)" value="Excel"/>
+                <element label="Excel(.xlsx/.xls)" value="EXCEL"/>
                 <element label="XML" value="XML"/>
             </choice>
         </element>
