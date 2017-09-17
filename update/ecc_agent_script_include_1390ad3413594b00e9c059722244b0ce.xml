@@ -7,17 +7,16 @@
         <script><![CDATA[var MSFT_FileImport = Class.create();
 MSFT_FileImport.prototype = {
 	initialize: function() {
-		_setPackageCalls();//setup package calls
-		this.probe_params = this._getProbeParams();
+		this._setPackageCalls();//setup package calls
+		this.probe_params = this._getProbeParams(); // get all probe parameters
 		
 		this.debug = gs.getProperty("MSFT.MID.SERVER") == 'true';
 		this.debugPrefix = "DEBUG-MSFT: ";
-		
-		
 	},
 	
-	execute: function(){
-		var operation = probe_params.operation;
+	
+	importFiles: function(){
+		var operation = this.probe_params.operation;
 		var fileListArray = this._getListOfFiles();
 		var encData = '';
 		//3.3
@@ -30,45 +29,41 @@ MSFT_FileImport.prototype = {
 			}
  			*/
 		} else if (operation == "import_and_attach") {
-			this._log("List of files: " + fileListArray + "length: "+ fileListArray.length);
+			this._midLog("List of files: " + fileListArray + "length: "+ fileListArray.length);
 			if(fileListArray.length != 0){
 				var inputstream;
 				for(var i in fileListArray){
-					var fileName = new this.File(fileListArray[i]);
-					var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(fileName), "UTF-8"));
+					/*
+					fileListArray[0]: this will print full path of file (d:/files/test.xml)
+					fileListArray[0].getName(): this will print only file name (test.xml)
+ 					*/
+					var filePath = fileListArray[i];
+					var fileName = fileListArray[i].getName();
+					var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(filePath), "UTF-8"));
 					//Read file
 					if(this.file_type == 'XML'){
 						//important note: need to supply character set as argument to FileInputStream function otherwise special charcter are not encoded properly
-						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(fileName), "UTF-8"));
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
 					}
 					else if(this.file_type == 'CSV'){
 						//important note: if file has sepcial charcter and specific encoding is required supply as argument to FileInputStream
-						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(fileName)));
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
 					}
 					else if(this.file_type == 'EXCEL'){
 						// uses OOB windows encoding
-						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(fileName)));
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
 					}
 					
 					else{
 						//Error: invalid file type, in future pdf can be added functions
-						this.mdLog("Invalid file type");
+						this._midLog("Invalid file type");
 					}
 					//need to handle stream closing
 					
 					//create data chunk
 					var buffer ='';
-					
-					var isFirstLine = true;
-					
 					while ((buffer = inputStream.readLine()) != null) {
-						if (!isFirstLine || i == 0) {
-							fileOutputStream.println(buffer);
-							fileOutputStream.flush();
-							
-							encData = encData + buffer + '\n';
-						}
-						isFirstLine=false;
+						encData = encData + buffer + '\n';
 					}
 					
 					//After file is read, post the attachment to target location
@@ -76,6 +71,10 @@ MSFT_FileImport.prototype = {
 					fileOutputStream.close();
 				}
 				
+			}
+			else{
+				// no files to transfer
+				this._midLog("No file found to transfer");
 			}
 		}
 		
@@ -154,8 +153,8 @@ MSFT_FileImport.prototype = {
 		_getListOfFiles: function(){
 			//Get the list of files that we will actually process (depending on chosen setting this may not be all files in the directory)
 			try{
-				var fileLocation = new this.File(this.probe_params.file_path);
-				var fileSection = this.probe_params.file_selection_criteria;
+				var folderLocation = new this.File(this.probe_params.folder_location);
+				var file_selection = this.probe_params.file_selection_criteria;
 				var jsFileID = this.probe_params.file_name.toString();
 				var fileListArray, jsFileFilter, fileFilter;
 				
@@ -171,9 +170,13 @@ MSFT_FileImport.prototype = {
 						}
 					};
 					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(fileLocation, jsFileID);
+					fileFilter.accept(folderLocation, jsFileID);
 					
-					fileListArray = fileLocation.listFiles(fileFilter);
+					fileListArray = folderLocation.listFiles(fileFilter);
+					/*
+					fileListArray[0]: this will print full path of file (d:/files/test.xml)
+					fileListArray[0].getName(): this will print only file name (test.xml)
+ 					*/
 				}
 				//Here we check if mode of operation is "all files with some keyword"
 				else if(file_selection == 'file_name_contains'){
@@ -188,9 +191,9 @@ MSFT_FileImport.prototype = {
 						}
 					};
 					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(fileLocation,jsFileID);
+					fileFilter.accept(folderLocation,jsFileID);
 					
-					fileListArray = fileLocation.listFiles(fileFilter);
+					fileListArray = folderLocation.listFiles(fileFilter);
 				}
 				//Here we check if mode of operation is "file name containing regular expression"
 				else if(file_selection == 'Reg_exp'){
@@ -207,27 +210,24 @@ MSFT_FileImport.prototype = {
 						}
 					};
 					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(fileLocation, jsFileID);
+					fileFilter.accept(folderLocation, jsFileID);
 					
-					fileListArray = fileLocation.listFiles(fileFilter);
+					fileListArray = folderLocation.listFiles(fileFilter);
 				}
 				else{
 					//invalid file selection criteria
-					this._mdLog("Invalid file selection criteria provided");
+					this._midLog("Invalid file selection criteria provided");
 				}
-				this._mdLog(fileListArray);
+				this._midLog("List of files in "+folderLocation+":"+fileListArray);
 				fileListArray.sort();
 				return fileListArray;
 			}
 			catch(e){
-				this._mdLog("Error in the getting File Names");
+				this._midLog("Error in the getting File Names");
 				return false;
 			}
 		},
 		
-		handleFiles: function(){
-			
-		},
 		_setPackageCalls: function(){
 			//Setup Package calls
 			this.HttpClient = Packages.org.apache.commons.httpclient.HttpClient;
@@ -262,7 +262,7 @@ MSFT_FileImport.prototype = {
 		
 		_getProbeParams: function(){
 			var probe_params = {};
-				probe_params.file_path = probe.getParameter("folder_location");
+				probe_params.folder_location = probe.getParameter("folder_location");
 				probe_params.file_name = probe.getParameter("file_name");
 				probe_params.file_type = probe.getParameter("file_type");
 				probe_params.file_selection_criteria = probe.getParameter("file_selection_criteria");
@@ -304,7 +304,7 @@ MSFT_FileImport.prototype = {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1390ad3413594b00e9c059722244b0ce</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>MSFT_FileImport</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -313,6 +313,6 @@ MSFT_FileImport.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>ecc_agent_script_include_1390ad3413594b00e9c059722244b0ce</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-16 23:54:07</sys_updated_on>
+        <sys_updated_on>2017-09-17 01:35:33</sys_updated_on>
     </ecc_agent_script_include>
 </record_update>

@@ -32,7 +32,7 @@
         <element_reference>false</element_reference>
         <foreign_database/>
         <internal_type display_value="Choice">choice</internal_type>
-        <mandatory>false</mandatory>
+        <mandatory>true</mandatory>
         <max_length>40</max_length>
         <name>x_kpmg3_mid_server_file_configuration</name>
         <next_element/>
@@ -54,7 +54,7 @@
         <sys_created_on>2017-09-16 18:04:46</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>b79ef87013194b00e9c059722244b0c8</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_name>File Selection Criteria</sys_name>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy/>
@@ -62,7 +62,7 @@
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sys_dictionary_x_kpmg3_mid_server_file_configuration_file_selection_criteria</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-16 18:04:46</sys_updated_on>
+        <sys_updated_on>2017-09-17 00:02:07</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>
