@@ -19,6 +19,7 @@ MSFT_FileImport.prototype = {
 		var operation = this.probe_params.operation;
 		var file_type = this.probe_params.file_type;
 		var fileListArray = this._getListOfFiles();
+		var buffer = '';
 		var encData = '';
 		//3.3
 		if (operation == "import_and_transform") {
@@ -31,19 +32,28 @@ MSFT_FileImport.prototype = {
  			*/
 		} else if (operation == "import_and_attach") {
 			if(fileListArray.length != 0){
-				var inputstream;
+				//var inputstream, fileOutputStream;
 				for(var i in fileListArray){
 					/*
 					fileListArray[0]: this will print full path of file (d:/files/test.xml)
 					fileListArray[0].getName(): this will print only file name (test.xml)
  					*/
-					var filePath = fileListArray[i];
+					var filePath = new this.File(fileListArray[i].toString());
 					var fileName = fileListArray[i].getName();
-					var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(filePath), "UTF-8"));
+					//var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(filePath), "UTF-8"));
 					//Read file
-					if(file_type == 'XML'){
+					/*if(file_type == 'XML'){
 						//important note: need to supply character set as argument to FileInputStream function otherwise special charcter are not encoded properly
-						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
+						var inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
+						this._midLog("Triggered XML File Reading:"+inputstream);
+						
+						//var isFirstLine = true;
+						while((buffer = inputstream.readLine()) != null) {
+							//this._midLog("Inside inputstream readline");
+							encData = encData + buffer + '\n';
+							//this._midLog("Prepare payload with buffer addition");
+							
+						}
 					}
 					else if(file_type == 'CSV'){
 						//important note: if file has sepcial charcter and specific encoding is required supply as argument to FileInputStream
@@ -53,22 +63,37 @@ MSFT_FileImport.prototype = {
 						// uses OOB windows encoding
 						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
 					}
-					
 					else{
 						//Error: invalid file type, in future pdf can be added functions
 						this._midLog("Invalid file type");
 					}
 					//need to handle stream closing
-					
+ 					*/
 					//create data chunk
-					var buffer ='';
+					/*var buffer ='';
+					var encData = '';
+					//var isFirstLine = true;
 					while ((buffer = inputstream.readLine()) != null) {
+						this._midLog("Inside inputstream readline");
 						encData = encData + buffer + '\n';
+						this._midLog("Prepare payload with buffer addition");
 					}
+ 					*/
 					
+					var inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
+					this._midLog("Triggered XML File Reading:"+inputstream);
+					
+					//var isFirstLine = true;
+					while((buffer = inputstream.readLine()) != null) {
+						//this._midLog("Inside inputstream readline");
+						encData = encData + buffer + '\n';
+						//this._midLog("Prepare payload with buffer addition");
+						
+					}
+					this._midLog("XML File Content:"+encData);
 					//After file is read, post the attachment to target location
 					this._postAttachment(encData, fileName);
-					fileOutputStream.close();
+					//fileOutputStream.close();
 				}
 				
 			}
@@ -84,20 +109,36 @@ MSFT_FileImport.prototype = {
 		
 		//Setup creds
 		var authScope = new this.AuthScope(this.instance_host + '', this.instance_port+ '', null);
-		var credentials = new this.UsernamePasswordCredentials(this.instance_username, this.instance_password);
+		var credentials = new this.UsernamePasswordCredentials(this.probe_params.instance_username, this.probe_params.instance_password);
 		client.getState().setCredentials(authScope, credentials);
 		
-		var ctcr = this._getContentTypeCharSet(this.probe_params.file_type);
+		this._midLog("Probe Parms file_type: " + this.probe_params.file_type);
+		var ctcr = this._getContentTypeCharset(this.probe_params.file_type);
 		var content_type = ctcr.content_type;
 		var charset = ctcr.charset;
-		
+		this._midLog("File ContentType:"+ content_type);
+		this._midLog("File charset:"+ charset);
 		//Setup endpoint
-		var url = this.instance_host + "api/now/attachment/file?table_name=" +
+		var url = this.probe_params.instance_url + "api/now/attachment/file?table_name=" +
 		this.probe_params.target_table + "&table_sys_id=" + this.probe_params.target_record +
 		"&file_name=" + fileName;
 		
 		this._midLog("Attachment URL: " + url);
-		
+			
+		var post = new this.PostMethod(url);
+			post.getParams().setContentCharset("utf-8");
+			post.setRequestHeader("Accept","application/json");
+			post.setRequestHeader("Content-Type","text/xml; charset=utf-8");
+			post.setRequestBody(data);
+			post.setDoAuthentication(true);
+			
+			//
+			// Now that we have the HTTP client set up, we are going to submit the request
+			// to ServiceNow
+			//
+			var status = client.executeMethod(post);
+				
+		/*
 		var post = new this.PostMethod(url);
 		post.setRequestHeader("Accept","application/json");
 		if(charset){
@@ -111,7 +152,7 @@ MSFT_FileImport.prototype = {
 		// Now that we have the HTTP client set up, we are going to submit the request to ServiceNow
 		//
 		var status = client.executeMethod(post);
-		
+		*/
 		//The business rule causes this to come back as 404 rather than the expected 201.
 		this._midLog("REST Webservice POST Status: " + status);
 		
@@ -122,7 +163,7 @@ MSFT_FileImport.prototype = {
  	* Returns: Provide Charset and Content Type based on file type
  	*/
 	
-	_getContentTypeCharSet: function(fileType) {
+	_getContentTypeCharset: function(fileType) {
 		var ext = fileType + '';
 		var response = {};
 			
@@ -146,7 +187,7 @@ MSFT_FileImport.prototype = {
 				response.charset = '';
 				response.content_type = "application/octet-stream";
 			}
-			this._midLog("File ContentType and Charset"+ new JSON().encode(response));
+			
 			return response;
 		},
 		
@@ -219,7 +260,7 @@ MSFT_FileImport.prototype = {
 					//invalid file selection criteria
 					this._midLog("Invalid file selection criteria provided");
 				}
-				this._midLog("List of files in "+folderLocation+":"+fileListArray);
+				//this._midLog("List of files in "+folderLocation+":"+fileListArray);
 				fileListArray.sort();
 				
 				//print file list
@@ -255,10 +296,9 @@ MSFT_FileImport.prototype = {
 			this.InputStreamReader = Packages.java.io.InputStreamReader;
 			this.OutputStreamWriter = Packages.java.io.OutputStreamWriter;
 			
-			this.StringUtil = Packages.com.glide.util.StringUtil;
-			
 			this.Properties = Packages.java.util.Properties;
 			this.String = Packages.java.lang.String;
+			this.StringUtil = Packages.com.glide.util.StringUtil;
 			this.URL = Packages.java.net.URL;
 			this.Encrypter = Packages.com.glide.util.Encrypter;
 			this.Charset = Packages.java.nio.charset.Charset;
@@ -285,10 +325,13 @@ MSFT_FileImport.prototype = {
 				probe_params.probe_name = probe.getParameter("config_name");
 				probe_params.zipped = probe.getParameter("zipped");
 				probe_params.instance_name = probe.getParameter("instance_name");
-				probe_params.instance_username = probe.getParameter("mid.instance.username");
-				probe_params.instance_password = probe.getParameter("mid.instance.password");
 				
-				this._midLog("The config JSON mapping that was sent: "+new JSON().encode(probe_params));
+				//mid server config params
+				probe_params.instance_username = ms.getConfigParameter("mid.instance.username");
+				probe_params.instance_password = ms.getConfigParameter("mid.instance.password");
+				probe_params.instance_url = ms.getConfigParameter("url");
+				
+				//this._midLog("The config JSON mapping that was sent: "+JSON2.stringify(probe_params));
 				return probe_params;
 			},
 			
@@ -307,7 +350,7 @@ MSFT_FileImport.prototype = {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1390ad3413594b00e9c059722244b0ce</sys_id>
-        <sys_mod_count>24</sys_mod_count>
+        <sys_mod_count>37</sys_mod_count>
         <sys_name>MSFT_FileImport</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -316,6 +359,6 @@ MSFT_FileImport.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>ecc_agent_script_include_1390ad3413594b00e9c059722244b0ce</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-17 06:57:40</sys_updated_on>
+        <sys_updated_on>2017-09-18 05:27:43</sys_updated_on>
     </ecc_agent_script_include>
 </record_update>

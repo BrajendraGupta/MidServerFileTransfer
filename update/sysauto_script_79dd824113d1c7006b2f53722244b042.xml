@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>MSFT_ImportFile</name>
+        <run_as display_value="Brajendra Gupta">59eb4ff14f7d4600a5eee0024210c794</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>1</run_dayofweek>
+        <run_period/>
+        <run_start>2017-09-17 18:25:58</run_start>
+        <run_time>1970-01-01 05:00:00</run_time>
+        <run_type>daily</run_type>
+        <script><![CDATA[var file = new MSFT_FileImport('IncidentXML').launchProbe();]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-17 18:26:09</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>79dd824113d1c7006b2f53722244b042</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>MSFT_ImportFile</sys_name>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sysauto_script_79dd824113d1c7006b2f53722244b042</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-09-17 18:26:30</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>
