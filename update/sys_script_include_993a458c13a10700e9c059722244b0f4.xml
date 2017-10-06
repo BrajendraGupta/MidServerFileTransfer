@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_kpmg3_mid_server.MSFT_FileImport_MultiPart</api_name>
+        <client_callable>false</client_callable>
+        <description>Prepare javascript probe parameter and Launch probe.</description>
+        <name>MSFT_FileImport_MultiPart</name>
+        <script><![CDATA[var MSFT_FileImport_MultiPart = Class.create();
+MSFT_FileImport_MultiPart.prototype = {
+	initialize: function(configName, target_record) {
+		this.configName = configName; // file configuration Name
+		this.target_record =  target_record; // sys_id of record to attach the imported file(s)
+		this.mid_server = gs.getProperty('x_kpmg3_mid_server.MSFT.MID.SERVER');
+		this.snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_FileImport_MultiPart');
+		this.snLog.includeTimestamp();
+	},
+	
+	launchProbe:function(){
+		
+		var jspr = new global.JavascriptProbe(this.mid_server);
+		jspr.setName('MSFT.FileImport_MultiPart');
+		jspr.setSource('MSFT_FileImport_MultiPart');
+		jspr.setJavascript('var msfi = new MSFT_FileImport_MultiPart(); result = msfi.importFiles();');
+		jspr.addParameter("instance_name",gs.getProperty("glide.servlet.uri"));
+		
+		//add file information
+		var dto = this.getAllParams(this.gr);
+		for(var v in dto){
+			jspr.addParameter(v,dto[v]);
+		}
+		jspr.create();
+		this.snLog.logInfo("MSFT.FileImport_MultiPart probe submitted");
+	},
+	
+	getAllParams: function(){
+		var gr = new GlideRecord('x_kpmg3_mid_server_file_configuration');
+		gr.addQuery('name', this.configName);
+		gr.addQuery('active', true);
+		gr.query();
+		var target_record;
+		if(gr.next()){
+			
+			//find record to attach files
+			if(gr.target_table.name.toString() == 'sys_data_source'){
+				//attach file to record provided data source field
+				target_record = gr.data_source.sys_id.toString();
+			}
+			else{
+				//attach file to record provided in targetSysId param
+				if(this.target_record.isValidRecord())
+					target_record = this.target_record.sys_id.toString();
+				else{
+					this.snLog.logError("Invalid record supplied to attach files");
+					return;
+				}
+			}
+			
+			// prepare json of file name and their values
+			var grjson = {};
+				
+				grjson.config_name = gr.getValue('name');
+				grjson.file_name = gr.getValue('file_name');
+				grjson.folder_location = gr.getValue('folder_location');
+				grjson.file_selection_criteria = gr.getValue('file_selection_criteria');
+				grjson.file_type = gr.getValue('file_type');
+				grjson.operation = gr.getValue('operation');
+				grjson.reg_exp = gr.getValue('regular_expression');
+				grjson.zipped = gr.zipped.toString();
+				grjson.target_table = gr.target_table.name.toString();
+				grjson.target_record = target_record;
+				grjson.debug = true;
+				this.snLog.logInfo("File Configuration for "+this.configName+": "+new global.JSON().encode(grjson));
+				return grjson;
+			}
+			else{
+				this.snLog.logError("Invalid File Configuration Name: "+configName);
+			}
+		},
+		
+		type: 'MSFT_FileImport_MultiPart'
+	};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-26 21:12:14</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>993a458c13a10700e9c059722244b0f4</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>MSFT_FileImport_MultiPart</sys_name>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sys_script_include_993a458c13a10700e9c059722244b0f4</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-10-05 04:50:35</sys_updated_on>
+    </sys_script_include>
+</record_update>

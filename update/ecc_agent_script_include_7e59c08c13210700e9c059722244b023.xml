@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="ecc_agent_script_include">
+    <ecc_agent_script_include action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>Script Include run from the mid server to bring files back and attach them to a data source.  The attachment triggers a business rule to do the transform and the attachment.</description>
+        <name>MSFT_FileImport</name>
+        <script><![CDATA[var MSFT_FileImport = Class.create();
+MSFT_FileImport.prototype = {
+	initialize: function() {
+		this._setPackageCalls();//setup package calls
+		this.probe_params = this._getProbeParams(); // get all probe parameters
+		
+		this.debug = true; //gs.getProperty("x_kpmg3_mid_server.MSFT.MID.SERVER");
+		this.debugPrefix = "DEBUG-MSFT: ";
+	},
+	
+	
+	importFiles: function(){
+		var operation = this.probe_params.operation;
+		var file_type = this.probe_params.file_type;
+		var fileListArray = this._getListOfFiles();
+		var buffer = '';
+		var encData = '';
+		//3.3
+		if (operation == "import_and_transform") {
+			//3.2.
+			//3.2.1 : if the import_and_transform; parse the XML and for each row,
+			
+			/*for (var v = 0, len = fileListArray.length; v < len; v++) {
+				this.handleFiles(fileListArray[v]);
+			}
+ 			*/
+		} else if (operation == "import_and_attach") {
+			if(fileListArray.length != 0){
+				var inputstream, fileOutputStream;
+				for(var i in fileListArray){
+					/*
+					fileListArray[0]: this will print full path of file (d:/files/test.xml)
+					fileListArray[0].getName(): this will print only file name (test.xml)
+ 					*/
+					var filePath = new this.File(fileListArray[i].toString());
+					var fileName = fileListArray[i].getName();
+					//var fileOutputStream = new this.BufferedWriter(new this.OutputStreamWriter(new this.FileOutputStream(filePath), "UTF-8"));
+					//Read file
+					if(file_type == 'XML'){
+						//important note: need to supply character set as argument to FileInputStream function otherwise special charcter are not encoded properly
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
+						this._midLog("Triggered XML File Reading:"+inputstream);
+						
+					}
+					else if(file_type == 'CSV'){
+						//important note: if file has sepcial charcter and specific encoding is required supply as argument to FileInputStream
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath)));
+					}
+					else if(file_type == 'EXCEL'){
+						// uses OOB windows encoding
+						//inputstream = new this.BufferedInputStream(new this.FileInputStream(filePath));
+						inputstream = new this.BufferedReader(new this.InputStreamReader(new this.FileInputStream(filePath), "UTF-8"));
+					}
+					else{
+						//Error: invalid file type, in future pdf can be added functions
+						this._midLog("Invalid file type");
+					}
+					//need to handle stream closing
+					/*if(file_type != 'EXCEL'){
+						while(inputstream.available() >0){
+							buffer = inputstream.read();
+							encData = encData + buffer;
+						}
+					}*/
+					
+					
+					while((buffer = inputstream.readLine()) != null) {
+						//this._midLog("Inside inputstream readline");
+						encData = encData + buffer + '\n';
+						//this._midLog("Prepare payload with buffer addition");
+					}
+					
+					
+					this._midLog("File Content:"+encData);
+					//After file is read, post the attachment to target location
+					this._postAttachment(encData, fileName);
+					//fileOutputStream.close();
+				}
+				
+			}
+			else{
+				// no files to transfer
+				this._midLog("No file found to transfer");
+			}
+		}
+		
+	},
+	_postAttachment: function(data, fileName) {
+		var client = new this.HttpClient();
+		
+		//Setup creds
+		var authScope = new this.AuthScope(this.instance_host + '', this.instance_port+ '', null);
+		var credentials = new this.UsernamePasswordCredentials(this.probe_params.instance_username, this.probe_params.instance_password);
+		client.getState().setCredentials(authScope, credentials);
+		
+		this._midLog("Probe Parms file_type: " + this.probe_params.file_type);
+		var ctcr = this._getContentTypeCharset(this.probe_params.file_type);
+		var content_type = ctcr.content_type;
+		var charset = ctcr.charset;
+		this._midLog("File ContentType:"+ content_type);
+		this._midLog("File charset:"+ charset);
+		//Setup endpoint
+		var url = this.probe_params.instance_url + "api/now/attachment/file?table_name=" +
+		this.probe_params.target_table + "&table_sys_id=" + this.probe_params.target_record +
+		"&file_name=" + fileName;
+		
+		this._midLog("Attachment URL: " + url);
+		
+		var post = new this.PostMethod(url);
+		post.setRequestHeader("Accept","application/json");
+		if(charset){
+			post.getParams().setContentCharset(charset);
+		}
+		post.setRequestHeader("Content-Type", content_type);
+		post.setRequestBody(data);
+		post.setDoAuthentication(true);
+		
+		//
+		// Now that we have the HTTP client set up, we are going to submit the request to ServiceNow
+		//
+		var status = client.executeMethod(post);
+		//The business rule causes this to come back as 404 rather than the expected 201.
+		this._midLog("REST Webservice POST Status: " + status);
+		
+	},
+	/**
+ 	* Description: Provide Charset and Content Type based on file type
+ 	* Parameters: filename
+ 	* Returns: Provide Charset and Content Type based on file type
+ 	*/
+	
+	_getContentTypeCharset: function(fileType) {
+		var ext = fileType + '';
+		var response = {};
+			
+			if (ext == 'DOC') {
+				response.charset = '';
+				response.content_type = "application/msword";
+			}
+			else if (ext == 'EXCEL') {
+				response.charset = 'utf-8';
+				response.content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+			}
+			else if (ext == 'XML') {
+				response.charset = 'utf-8';
+				response.content_type = "text/xml; charset=utf-8";
+			}
+			else if (ext == 'CSV') {
+				response.charset = '';
+				response.content_type = "text/csv";
+			}
+			else{
+				response.charset = '';
+				response.content_type = "application/octet-stream";
+			}
+			
+			return response;
+		},
+		
+		_getListOfFiles: function(){
+			//Get the list of files that we will actually process (depending on chosen setting this may not be all files in the directory)
+			try{
+				var folderLocation = new this.File(this.probe_params.folder_location);
+				var file_selection = this.probe_params.file_selection_criteria;
+				var jsFileID = this.probe_params.file_name.toString();
+				var regex_pattern = this.probe_params.regex_pattern;
+				var fileListArray, jsFileFilter, fileFilter;
+				
+				//Here we check if mode of operation is "static filename"
+				if(file_selection == 'file_name'){
+					jsFileFilter = {
+						accept: function(fileObject, fileName) {
+							if (fileName.indexOf(jsFileID) == 0) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					};
+					fileFilter = new this.FilenameFilter(jsFileFilter);
+					fileFilter.accept(folderLocation, jsFileID);
+					
+					fileListArray = folderLocation.listFiles(fileFilter);
+					/*
+					fileListArray[0]: this will print full path of file (d:/files/test.xml)
+					fileListArray[0].getName(): this will print only file name (test.xml)
+ 					*/
+				}
+				//Here we check if mode of operation is "all files with some keyword"
+				else if(file_selection == 'file_name_contains'){
+					jsFileFilter = {
+						accept: function(fileObject, fileName) {
+							fileName = fileName + '';
+							if (fileName.indexOf(jsFileID) != -1) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					};
+					fileFilter = new this.FilenameFilter(jsFileFilter);
+					fileFilter.accept(folderLocation,jsFileID);
+					
+					fileListArray = folderLocation.listFiles(fileFilter);
+				}
+				//Here we check if mode of operation is "file name containing regular expression"
+				else if(file_selection == 'reg_exp'){
+					
+					jsFileFilter = {
+						accept: function(fileObject, fileName) {
+							var re = new RegExp(regex_pattern);
+							fileName = fileName + ''; // making sure we have the file name here.
+							if (re.test(fileName)) {
+								return true;
+							} else {
+								return false;
+							}
+						}
+					};
+					fileFilter = new this.FilenameFilter(jsFileFilter);
+					fileFilter.accept(folderLocation, jsFileID);
+					
+					fileListArray = folderLocation.listFiles(fileFilter);
+				}
+				else{
+					//invalid file selection criteria
+					this._midLog("Invalid file selection criteria provided");
+				}
+				//this._midLog("List of files in "+folderLocation+":"+fileListArray);
+				fileListArray.sort();
+				
+				//print file list
+				for(var bg in fileListArray){
+					this._midLog("File Founds is: "+fileListArray[bg]);
+				}
+				
+				return fileListArray;
+			}
+			catch(e){
+				this._midLog("Error in the getting File Names"+e.getMessage());
+				return false;
+			}
+		},
+		
+		_setPackageCalls: function(){
+			//Setup Package calls
+			this.HttpClient = Packages.org.apache.commons.httpclient.HttpClient;
+			this.AuthScope = Packages.org.apache.commons.httpclient.auth.AuthScope;
+			this.UsernamePasswordCredentials =  Packages.org.apache.commons.httpclient.UsernamePasswordCredentials;
+			this.PostMethod = Packages.org.apache.commons.httpclient.methods.PostMethod;
+			
+			this.File = Packages.java.io.File;
+			this.FilenameFilter = Packages.java.io.FilenameFilter;
+			this.FileOutputStream = Packages.java.io.FileOutputStream;
+			this.FileInputStream = Packages.java.io.FileInputStream;
+			this.BufferedInputStream = Packages.java.io.BufferedInputStream;
+			this.FileWriter = Packages.java.io.FileWriter;
+			this.FileReader = Packages.java.io.FileReader;
+			this.BufferedWriter = Packages.java.io.BufferedWriter;
+			this.PrintWriter = Packages.java.io.PrintWriter;
+			this.ByteArrayOutputStream = Packages.java.io.ByteArrayOutputStream;
+			this.BufferedReader = Packages.java.io.BufferedReader;
+			this.InputStreamReader = Packages.java.io.InputStreamReader;
+			this.OutputStreamWriter = Packages.java.io.OutputStreamWriter;
+			
+			this.Properties = Packages.java.util.Properties;
+			this.String = Packages.java.lang.String;
+			this.StringUtil = Packages.com.glide.util.StringUtil;
+			this.URL = Packages.java.net.URL;
+			this.Encrypter = Packages.com.glide.util.Encrypter;
+			this.Charset = Packages.java.nio.charset.Charset;
+			
+			var url = new this.URL(probe.getParameter("instance_name"));
+			this.instance_host = url.getHost();
+			var port = url.getPort();
+			this.instance_port = (port == -1) ? 443 : port;
+			this._midLog('Instance Host: ' + this.instance_host);
+			this._midLog('Instance Port: ' + this.instance_port);
+			
+		},
+		
+		_getProbeParams: function(){
+			var probe_params = {};
+				probe_params.folder_location = probe.getParameter("folder_location");
+				probe_params.file_name = probe.getParameter("file_name");
+				probe_params.file_type = probe.getParameter("file_type");
+				probe_params.file_selection_criteria = probe.getParameter("file_selection_criteria");
+				probe_params.operation = probe.getParameter("operation");
+				probe_params.target_table = probe.getParameter("target_table");
+				probe_params.target_record = probe.getParameter("target_record");
+				probe_params.regex_pattern = probe.getParameter("regular_expression");
+				probe_params.probe_name = probe.getParameter("config_name");
+				probe_params.zipped = probe.getParameter("zipped");
+				probe_params.instance_name = probe.getParameter("instance_name");
+				
+				//mid server config params
+				probe_params.instance_username = ms.getConfigParameter("mid.instance.username");
+				probe_params.instance_password = ms.getConfigParameter("mid.instance.password");
+				probe_params.instance_url = ms.getConfigParameter("url");
+				
+				//this._midLog("The config JSON mapping that was sent: "+JSON2.stringify(probe_params));
+				return probe_params;
+			},
+			
+			_midLog : function(msg) {
+				if (this.debug) {
+					ms.log(this.debugPrefix + msg);
+				}
+			},
+			
+			type: 'MSFT_FileImport'
+		};]]></script>
+        <sys_class_name>ecc_agent_script_include</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-26 16:28:54</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>7e59c08c13210700e9c059722244b023</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>MSFT_FileImport</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>ecc_agent_script_include_7e59c08c13210700e9c059722244b023</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-09-26 16:29:15</sys_updated_on>
+    </ecc_agent_script_include>
+</record_update>
