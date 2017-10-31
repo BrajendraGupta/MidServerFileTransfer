@@ -22,7 +22,7 @@ MSFT_FileImport_MultiPart.prototype = {
 		var fileListArray = this._getListOfFiles();
 		var buffer = '';
 		var encData = '';
-		
+		var result = '';
 		if(fileListArray.length != 0){
 			for(var i in fileListArray){
 				/*
@@ -33,61 +33,56 @@ MSFT_FileImport_MultiPart.prototype = {
 				this._postAttachment(filePath);
 				
 			}
-			
+			result = 'success';
 		}
 		else{
 			// no files to transfer
 			this._midLog("No file found to transfer");
+			result = 'failure';
 		}
-					probe.createCDATAElement("LOG", this.logString);
-
+		probe.createCDATAElement("LOG", this.logString);
+		return result;
 		
 	},
 	_postAttachment: function(filePath) {
 		
 		try {
-			this._midLog("Starting Code.....");
-			
+			this._midLog("Starting post attachment code.....");
+			this._midLog("Building connection credentials...");
 			var credsProvider = new this.BasicCredentialsProvider();
 			var credentials = new this.UsernamePasswordCredentials(this.probe_params.instance_username, this.probe_params.instance_password);
 			credsProvider.setCredentials(this.AuthScope.ANY, credentials);
-			this._midLog("credentials created...");
+			this._midLog("Building httpclient...");
 			var httpclient = this.HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
-			this._midLog("httpclient created...");
+			
 			//url
 			var url = this.probe_params.instance_url + "api/now/attachment/upload";
 			//http post
+			this._midLog("Building httppost request...");
 			var httppost = new this.HttpPost(url);
 			httppost.setHeader("Accept", "application/json");
 			//httppost.setHeader("Content-Type", ContentType.MULTIPART_FORM_DATA.getMimeType()+"; boundary=--BGBoundary_vs3IYA_fjfkCUSlqhY");
 			httppost.setHeader("Accept-Encoding", "gzip, deflate, br");
 			
-			this._midLog("httppost created...");
 			//build multipart request
+			this._midLog("Bulding multipart request...");
 			var snfile = new this.File(filePath);
-			//var fileBody = new this.FileBody(snfile, this.ContentType.DEFAULT_BINARY);
 			var sn_table_name = new this.StringBody(this.probe_params.target_table, this.ContentType.MULTIPART_FORM_DATA);
 			var sn_table_sys_id = new this.StringBody(this.probe_params.target_record, this.ContentType.MULTIPART_FORM_DATA);
-			this._midLog("builder variables created...");
-			this._midLog("builder variables sn_table_name:"+sn_table_name);
-			this._midLog("builder variables sn_table_sys_id:"+sn_table_sys_id);
-			//this._midLog("builder variables fileBody:"+fileBody);
-			
+			this._midLog("builder variables created: table, sys_id: "+sn_table_name+" , "+sn_table_sys_id);
 
-			
 			var builder = this.MultipartEntityBuilder.create();
 			builder.setMode(this.HttpMultipartMode.BROWSER_COMPATIBLE);
 			builder.addPart("table_name", sn_table_name);
 			builder.addPart("table_sys_id", sn_table_sys_id);
-			//builder.addPart("file", fileBody);
 			builder.addBinaryBody("file", snfile, this.ContentType.DEFAULT_BINARY, snfile.getName());
 			this._midLog("Builder created...");
 			var entity = builder.build();
-			this._midLog("entity created...");
-			this._midLog("entity content:"+entity);
+			//this._midLog("entity created...");
+			//this._midLog("entity content:"+entity);
 			httppost.setEntity(entity);
 			
-			this._midLog("entity set...");
+			//this._midLog("entity set...");
 			
 			//---Print outgoing request---
 			this._midLog("httppost string:"+httppost.toString());
@@ -105,9 +100,9 @@ MSFT_FileImport_MultiPart.prototype = {
 			//this._midLog("\n");
 			//this._midLog(content);
 			
-			//-----
- 			
+			
 			//---Post http request
+			this._midLog("Posting HTTP request...");
 			var response = httpclient.execute(httppost);
 			this._midLog("HTTP POST response:"+response);
 			
@@ -121,150 +116,149 @@ MSFT_FileImport_MultiPart.prototype = {
 	},
 	
 	_getListOfFiles: function(){
-			//Get the list of files that we will actually process (depending on chosen setting this may not be all files in the directory)
-			try{
-				var folderLocation = new this.File(this.probe_params.folder_location);
-				var file_selection = this.probe_params.file_selection_criteria;
-				var jsFileID = this.probe_params.file_name.toString();
-				var regex_pattern = this.probe_params.regex_pattern;
-				var fileListArray, jsFileFilter, fileFilter;
-				
-				//Here we check if mode of operation is "static filename"
-				if(file_selection == 'file_name'){
-					jsFileFilter = {
-						accept: function(fileObject, fileName) {
-							if (fileName.indexOf(jsFileID) == 0) {
-								return true;
-							} else {
-								return false;
-							}
+		//Get the list of files that we will actually process (depending on chosen setting this may not be all files in the directory)
+		try{
+			var folderLocation = new this.File(this.probe_params.folder_location);
+			var file_selection = this.probe_params.file_selection_criteria;
+			var jsFileID = this.probe_params.file_name.toString();
+			var regex_pattern = this.probe_params.regex_pattern;
+			var fileListArray, jsFileFilter, fileFilter;
+			
+			//Here we check if mode of operation is "static filename"
+			if(file_selection == 'file_name'){
+				jsFileFilter = {
+					accept: function(fileObject, fileName) {
+						if (fileName.indexOf(jsFileID) == 0) {
+							return true;
+						} else {
+							return false;
 						}
-					};
-					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(folderLocation, jsFileID);
-					
-					fileListArray = folderLocation.listFiles(fileFilter);
-					/*
-					fileListArray[0]: this will print full path of file (d:/files/test.xml)
-					fileListArray[0].getName(): this will print only file name (test.xml)
- 					*/
-				}
-				//Here we check if mode of operation is "all files with some keyword"
-				else if(file_selection == 'file_name_contains'){
-					jsFileFilter = {
-						accept: function(fileObject, fileName) {
-							fileName = fileName + '';
-							if (fileName.indexOf(jsFileID) != -1) {
-								return true;
-							} else {
-								return false;
-							}
-						}
-					};
-					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(folderLocation,jsFileID);
-					
-					fileListArray = folderLocation.listFiles(fileFilter);
-				}
-				//Here we check if mode of operation is "file name containing regular expression"
-				else if(file_selection == 'reg_exp'){
-					
-					jsFileFilter = {
-						accept: function(fileObject, fileName) {
-							var re = new RegExp(regex_pattern);
-							fileName = fileName + ''; // making sure we have the file name here.
-							if (re.test(fileName)) {
-								return true;
-							} else {
-								return false;
-							}
-						}
-					};
-					fileFilter = new this.FilenameFilter(jsFileFilter);
-					fileFilter.accept(folderLocation, jsFileID);
-					
-					fileListArray = folderLocation.listFiles(fileFilter);
-				}
-				else{
-					//invalid file selection criteria
-					this._midLog("Invalid file selection criteria provided");
-				}
-				//this._midLog("List of files in "+folderLocation+":"+fileListArray);
-				fileListArray.sort();
+					}
+				};
+				fileFilter = new this.FilenameFilter(jsFileFilter);
+				fileFilter.accept(folderLocation, jsFileID);
 				
-				//print file list
-				for(var bg in fileListArray){
-					this._midLog("File Found is: "+fileListArray[bg]);
-				}
-				
-				return fileListArray;
+				fileListArray = folderLocation.listFiles(fileFilter);
+				/*
+				fileListArray[0]: this will print full path of file (d:/files/test.xml)
+				fileListArray[0].getName(): this will print only file name (test.xml)
+ 				*/
 			}
-			catch(e){
-				this._midLog("Error in the getting File Names:"+e);
-				return false;
+			//Here we check if mode of operation is "all files with some keyword"
+			else if(file_selection == 'file_name_contains'){
+				jsFileFilter = {
+					accept: function(fileObject, fileName) {
+						fileName = fileName + '';
+						if (fileName.indexOf(jsFileID) != -1) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				};
+				fileFilter = new this.FilenameFilter(jsFileFilter);
+				fileFilter.accept(folderLocation,jsFileID);
+				
+				fileListArray = folderLocation.listFiles(fileFilter);
+			}
+			//Here we check if mode of operation is "file name containing regular expression"
+			else if(file_selection == 'reg_exp'){
+				
+				jsFileFilter = {
+					accept: function(fileObject, fileName) {
+						var re = new RegExp(regex_pattern);
+						fileName = fileName + ''; // making sure we have the file name here.
+						if (re.test(fileName)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				};
+				fileFilter = new this.FilenameFilter(jsFileFilter);
+				fileFilter.accept(folderLocation, jsFileID);
+				
+				fileListArray = folderLocation.listFiles(fileFilter);
+			}
+			else{
+				//invalid file selection criteria
+				this._midLog("Invalid file selection criteria provided");
+			}
+			//this._midLog("List of files in "+folderLocation+":"+fileListArray);
+			fileListArray.sort();
+			
+			//print file list
+			for(var bg in fileListArray){
+				this._midLog("File Found: "+fileListArray[bg]);
+			}
+
+			return fileListArray;
+		}
+		catch(e){
+			this._midLog("Error in the getting File Names:"+e);
+			return false;
+		}
+	},
+	
+	_setPackageCalls: function(){
+		//Setup Package calls
+		this.File = Packages.java.io.File;
+		this.FilenameFilter = Packages.java.io.FilenameFilter;
+		this.IOException = Packages.java.io.IOException;
+		
+		this.Header = Packages.org.apache.http.Header;
+		this.HttpEntity = Packages.org.apache.http.HttpEntity;
+		this.HttpResponse = Packages.org.apache.http.HttpResponse;
+		this.HttpPost = Packages.org.apache.http.client.methods.HttpPost;
+		this.CloseableHttpClient = Packages.org.apache.http.impl.client.CloseableHttpClient;
+		this.HttpClients = Packages.org.apache.http.impl.client.HttpClients;
+		this.HttpMultipartMode = Packages.org.apache.http.entity.mime.HttpMultipartMode;
+		this.MultipartEntityBuilder = Packages.org.apache.http.entity.mime.MultipartEntityBuilder;
+		this.ContentType = Packages.org.apache.http.entity.ContentType;
+		this.FileBody = Packages.org.apache.http.entity.mime.content.FileBody;
+		this.StringBody = Packages.org.apache.http.entity.mime.content.StringBody;
+		this.EntityUtils = Packages.org.apache.http.util.EntityUtils;
+		
+		this.UsernamePasswordCredentials = Packages.org.apache.http.auth.UsernamePasswordCredentials;
+		this.BasicCredentialsProvider = Packages.org.apache.http.impl.client.BasicCredentialsProvider;
+		this.CredentialsProvider = Packages.org.apache.http.client.CredentialsProvider;
+		this.AuthScope = Packages.org.apache.http.auth.AuthScope;
+		this.HttpEntityEnclosingRequestBase = Packages.org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+		
+		
+	},
+	
+	_getProbeParams: function(){
+		var probe_params = {};
+			probe_params.folder_location = probe.getParameter("folder_location");
+			probe_params.file_name = probe.getParameter("file_name");
+			probe_params.file_type = probe.getParameter("file_type");
+			probe_params.file_selection_criteria = probe.getParameter("file_selection_criteria");
+			probe_params.operation = probe.getParameter("operation");
+			probe_params.target_table = probe.getParameter("target_table");
+			probe_params.target_record = probe.getParameter("target_record");
+			probe_params.regex_pattern = probe.getParameter("regular_expression");
+			probe_params.probe_name = probe.getParameter("config_name");
+			probe_params.zipped = probe.getParameter("zipped");
+			probe_params.instance_name = probe.getParameter("instance_name");
+			
+			//mid server config params
+			probe_params.instance_username = ms.getConfigParameter("mid.instance.username");
+			probe_params.instance_password = ms.getConfigParameter("mid.instance.password");
+			probe_params.instance_url = ms.getConfigParameter("url");
+			
+			return probe_params;
+		},
+		
+		_midLog : function(msg) {
+			if (this.debug) {
+				ms.log(this.debugPrefix + msg);
+				this.logString = this.logString + "\n" + this.debugPrefix + msg;
 			}
 		},
 		
-		_setPackageCalls: function(){
-			//Setup Package calls
-			this.File = Packages.java.io.File;
-			this.FilenameFilter = Packages.java.io.FilenameFilter;
-			this.IOException = Packages.java.io.IOException;
-						
-			this.Header = Packages.org.apache.http.Header;
-			this.HttpEntity = Packages.org.apache.http.HttpEntity;
-			this.HttpResponse = Packages.org.apache.http.HttpResponse;
-			this.HttpPost = Packages.org.apache.http.client.methods.HttpPost;
-			this.CloseableHttpClient = Packages.org.apache.http.impl.client.CloseableHttpClient;
-			this.HttpClients = Packages.org.apache.http.impl.client.HttpClients;
-			this.HttpMultipartMode = Packages.org.apache.http.entity.mime.HttpMultipartMode;
-			this.MultipartEntityBuilder = Packages.org.apache.http.entity.mime.MultipartEntityBuilder;
-			this.ContentType = Packages.org.apache.http.entity.ContentType;
-			this.FileBody = Packages.org.apache.http.entity.mime.content.FileBody;
-			this.StringBody = Packages.org.apache.http.entity.mime.content.StringBody;
-			this.EntityUtils = Packages.org.apache.http.util.EntityUtils;
-			
-			this.UsernamePasswordCredentials = Packages.org.apache.http.auth.UsernamePasswordCredentials;
-			this.BasicCredentialsProvider = Packages.org.apache.http.impl.client.BasicCredentialsProvider;
-			this.CredentialsProvider = Packages.org.apache.http.client.CredentialsProvider;
-			this.AuthScope = Packages.org.apache.http.auth.AuthScope;
-			this.HttpEntityEnclosingRequestBase = Packages.org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-			
-			
-		},
-		
-		_getProbeParams: function(){
-			var probe_params = {};
-				probe_params.folder_location = probe.getParameter("folder_location");
-				probe_params.file_name = probe.getParameter("file_name");
-				probe_params.file_type = probe.getParameter("file_type");
-				probe_params.file_selection_criteria = probe.getParameter("file_selection_criteria");
-				probe_params.operation = probe.getParameter("operation");
-				probe_params.target_table = probe.getParameter("target_table");
-				probe_params.target_record = probe.getParameter("target_record");
-				probe_params.regex_pattern = probe.getParameter("regular_expression");
-				probe_params.probe_name = probe.getParameter("config_name");
-				probe_params.zipped = probe.getParameter("zipped");
-				probe_params.instance_name = probe.getParameter("instance_name");
-				
-				//mid server config params
-				probe_params.instance_username = ms.getConfigParameter("mid.instance.username");
-				probe_params.instance_password = ms.getConfigParameter("mid.instance.password");
-				probe_params.instance_url = ms.getConfigParameter("url");
-				
-				//this._midLog("The config JSON mapping that was sent: "+JSON2.stringify(probe_params));
-				return probe_params;
-			},
-			
-			_midLog : function(msg) {
-				if (this.debug) {
-					ms.log(this.debugPrefix + msg);
-					this.logString = this.logString + "\n" + this.debugPrefix + msg;
-				}
-			},
-			
-			type: 'MSFT_FileImport_MultiPart'
-		};]]></script>
+		type: 'MSFT_FileImport_MultiPart'
+	};]]></script>
         <sys_class_name>ecc_agent_script_include</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-16 20:30:29</sys_created_on>
@@ -272,7 +266,7 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1390ad3413594b00e9c059722244b0ce</sys_id>
-        <sys_mod_count>90</sys_mod_count>
+        <sys_mod_count>94</sys_mod_count>
         <sys_name>MSFT_FileImport_MultiPart</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -281,6 +275,6 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>ecc_agent_script_include_1390ad3413594b00e9c059722244b0ce</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-06 05:44:22</sys_updated_on>
+        <sys_updated_on>2017-10-31 22:55:42</sys_updated_on>
     </ecc_agent_script_include>
 </record_update>

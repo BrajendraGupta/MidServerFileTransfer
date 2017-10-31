@@ -17,9 +17,12 @@ function processDataSource(){
 	var snLog = new GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFI_Process Data Source Global');
 	snLog.includeTimestamp();
 	snLog.logInfo('Begin Event Processing');
-
+	snLog.logInfo('Event.parm1'+event.parm1);
+	snLog.logInfo('Event.parm2'+event.parm2);
+	
 	var sourceDS = new GlideRecord('sys_data_source');
 	sourceDS.get(event.parm1);
+	snLog.logInfo("DS Name: "+sourceDS.name);
 	//Delete any other attachments on the data source
 	var otherAttachments = new GlideRecord('sys_attachment');
 	otherAttachments.addQuery('table_name', 'sys_data_source');
@@ -28,12 +31,12 @@ function processDataSource(){
 	otherAttachments.deleteMultiple();
 	
 	//Start loading the data in to an import set
-	snLog.logInfo('Loading File ' + sourceDS.name);
+	//gs.log('Loading File ' + sourceDS.name, 'multiftp');
 	var loader = new GlideImportSetLoader();
 	var importSetGr = loader.getImportSetGr(sourceDS);
 	var ranload = loader.loadImportSetTable(importSetGr, sourceDS);
 	
-	snLog.logInfo('Running Transform map ' + sourceDS.name);
+	//gs.log('Running Transform map ' + sourceDS.name, 'multiftp');
 	
 	//Start the transform on the import set
 	var t = new global.GlideImportSetTransformer();
@@ -47,7 +50,7 @@ function processDataSource(){
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>bb7873f8139d4b00e9c059722244b0d3</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>MSFI_Process Data Source</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -56,6 +59,6 @@ function processDataSource(){
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sysevent_script_action_bb7873f8139d4b00e9c059722244b0d3</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-09-17 09:08:41</sys_updated_on>
+        <sys_updated_on>2017-10-07 01:36:41</sys_updated_on>
     </sysevent_script_action>
 </record_update>

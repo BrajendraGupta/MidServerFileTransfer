@@ -6,20 +6,20 @@
         <action_delete>false</action_delete>
         <action_insert>true</action_insert>
         <action_query>false</action_query>
-        <action_update>false</action_update>
-        <active>false</active>
+        <action_update>true</action_update>
+        <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
         <client_callable>false</client_callable>
-        <collection>sys_attachment</collection>
-        <condition>current.table_name == 'sys_data_source' &amp;&amp; !gs.getSession().isInteractive()</condition>
+        <collection>ecc_queue</collection>
+        <condition>current.topic == 'JavascriptProbe' &amp;&amp; current.name == 'MSFT.FileImport_MultiPart' &amp;&amp; current.queue == 'input' &amp;&amp; current.state == 'ready'</condition>
         <description/>
         <execute_function>false</execute_function>
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>MSFT_File Attachment Processor</name>
+        <name>MSFT_FileImport_ECCQ_Process</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -29,45 +29,45 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
-	//current.table_name == 'sys_data_source' && !gs.getSession().isInteractive()
-	var snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_File Attachment Processor');
+	var snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_FileImport_ECCQ_Process');
 	snLog.includeTimestamp();
-	snLog.logInfo('Begin Triggering Event');
-	var msfi_config = new GlideRecord("x_kpmg3_mid_server_file_configuration");
-	msfi_config.addQuery("operation", "import_and_transform");
-	msfi_config.addQuery("target_table.name", "sys_data_source");
-	msfi_config.addQuery("data_source", current.table_sys_id);
-	msfi_config.query();
-	if (msfi_config.next()) {
-		//Trigger event to execute script action which loads and transforms the attached file
-		gs.eventQueue('x_kpmg3_mid_server.msfi.process.ds', msfi_config, msfi_config.data_source.sys_id.toString(), current.sys_id.toString());
-		snLog.logInfo('Event Triggerred');
+	snLog.info("ECC Queue Response received");
+	var xmldoc =  new global.XMLDocument(current.payload);
+	var output = xmldoc.getElementValueByTagName("output");
+	var midLog = xmldoc.getElementValueByTagName("LOG");
+	snLog.info("Mid Server Logs: "+ midLog);
+	if (output != 'success'){
+		//gs.eventQueue("multiftp.failure", current, output, current.response_to);
+		snLog.error("File Import failed");
+		current.state = "error";
+		current.error_string = midLog;
+		current.update();
 	}
 	else{
-		snLog.logError('File configuration or Data source or attachment not found');
+		snLog.info("File Import successful");
+		current.state = "processed";
+		current.update();
 	}
-	
-	
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-        <sys_created_on>2017-09-17 07:31:06</sys_created_on>
+        <sys_created_on>2017-10-31 21:48:46</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>7986b3b8139d4b00e9c059722244b029</sys_id>
-        <sys_mod_count>13</sys_mod_count>
-        <sys_name>MSFT_File Attachment Processor</sys_name>
+        <sys_id>49e0691f130a8b40e9c059722244b079</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>MSFT_FileImport_ECCQ_Process</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
-        <sys_update_name>sys_script_7986b3b8139d4b00e9c059722244b029</sys_update_name>
+        <sys_update_name>sys_script_49e0691f130a8b40e9c059722244b079</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-07 01:34:38</sys_updated_on>
+        <sys_updated_on>2017-10-31 23:08:49</sys_updated_on>
         <template/>
-        <when>after</when>
+        <when>async</when>
     </sys_script>
-    <sys_translated_text action="delete_multiple" query="documentkey=7986b3b8139d4b00e9c059722244b029"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=49e0691f130a8b40e9c059722244b079"/>
 </record_update>

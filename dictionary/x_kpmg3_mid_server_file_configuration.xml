@@ -21,7 +21,7 @@
         </element>
         <element label="Folder Location" mandatory="true" max_length="100" name="folder_location" type="string"/>
         <element label="Name" mandatory="true" max_length="100" name="name" type="string"/>
-        <element choice="1" default="import_and_attach" label="Operation" mandatory="true" max_length="40" name="operation" read_only="true" type="choice">
+        <element choice="3" default="import_and_transform" label="Operation" mandatory="true" max_length="40" name="operation" type="choice">
             <choice>
                 <element label="Import and Attach" value="import_and_attach"/>
                 <element label="Import and Transform" value="import_and_transform"/>

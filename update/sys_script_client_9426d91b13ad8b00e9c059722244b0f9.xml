@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>operation</field>
+        <global>true</global>
+        <messages/>
+        <name>Set Table on import and transform</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+	if(g_form.isNewRecord()){
+		if (newValue == 'import_and_transform'){
+			// set table to sys_data_source
+			g_form.setValue('target_table','61d24d77130332006b2f53722244b080', "Data Source");//sysid of data source table:
+			g_form.setReadOnly('target_table', true);
+		}
+	}
+	if (newValue === '' || isLoading) {
+		return;
+	}
+	else if (newValue == 'import_and_transform'){
+		// set table to sys_data_source
+		g_form.setValue('target_table','61d24d77130332006b2f53722244b080', "Data Source");//sysid of data source table:
+		g_form.setReadOnly('target_table', true);
+	}
+	else{
+		g_form.setValue('target_table','');//sysid of data source table:
+		g_form.setReadOnly('target_table', false);
+	}
+	//}
+	//Type appropriate comment here, and begin script below
+	
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-10-07 00:27:39</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>9426d91b13ad8b00e9c059722244b0f9</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>Set Table on import and transform</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sys_script_client_9426d91b13ad8b00e9c059722244b0f9</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-10-07 01:48:41</sys_updated_on>
+        <table>x_kpmg3_mid_server_file_configuration</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

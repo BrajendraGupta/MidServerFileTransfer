@@ -133,11 +133,11 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
+            <sys_created_on>2017-10-07 01:08:31</sys_created_on>
             <sys_customer_update>true</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>2230963c13994b00e9c059722244b041</sys_id>
+            <sys_id>fb20a59f13ad8b00e9c059722244b01f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_kpmg3_mid_server_file_configuration</sys_name>
             <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -146,8 +146,8 @@
             <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
             <sys_update_name>sys_ui_list_x_kpmg3_mid_server_file_configuration_null</sys_update_name>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
-            <sys_user/>
+            <sys_updated_on>2017-10-07 01:08:31</sys_updated_on>
+            <sys_user display_value="Brajendra Gupta">59eb4ff14f7d4600a5eee0024210c794</sys_user>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>
         </sys_ui_list>

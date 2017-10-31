@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Logs" max_length="40" name="x_kpmg3_mid_server_logs" type="collection">
+        <element label="File Configuration" max_length="32" name="file_configuration" type="string"/>
+        <element label="Import Set" max_length="40" name="import_set" type="string"/>
+        <element label="Job Name" max_length="40" name="job_name" type="string"/>
+        <element label="Job Run Time" max_length="40" name="job_run_time" type="glide_date_time"/>
+        <element label="Message" max_length="4000" name="message" type="journal"/>
+        <element label="Source" max_length="40" name="source" type="string"/>
+        <element label="Status" max_length="40" name="status" type="string"/>
+        <index name="index">
+            <element name="file_configuration"/>
+        </index>
+    </element>
+</database>
