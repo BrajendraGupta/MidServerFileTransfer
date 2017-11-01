@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="sys_transform_map" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>name</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741da0a0006415cb183520a877576</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>source_table</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741db0a0006413c5b8df5b5928c64</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>target_table</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741db0a00064134ba378b4fe76187</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_business_rules</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741dc0a0006414b5ecbea3aa34b93</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>order</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741dd0a00064151955198e6766764</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>active</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741dd0a0006410bb158b0f4a10366</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sys_updated_on</element>
+            <list_id display_value="sys_transform_map" element="NULL" name="sys_transform_map" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1d741d90a0006415315d3cbab7e987c</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2011-04-29 15:18:49</sys_created_on>
+            <sys_id>a1d741de0a0006417f90370a59609110</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2011-04-29 15:18:49</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>sys_transform_map</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-10-31 23:48:07</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>718db9db134a8b40e9c059722244b0df</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sys_transform_map</sys_name>
+            <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+            <sys_update_name>sys_ui_list_sys_transform_map_null</sys_update_name>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-10-31 23:48:07</sys_updated_on>
+            <sys_user display_value="Brajendra Gupta">59eb4ff14f7d4600a5eee0024210c794</sys_user>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

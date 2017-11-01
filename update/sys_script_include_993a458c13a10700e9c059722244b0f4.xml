@@ -27,6 +27,10 @@ MSFT_FileImport_MultiPart.prototype = {
 		
 		//add file information
 		var dto = this.getAllParams(this.gr);
+		if(dto == false){
+			this.snLog.logError("Probe was not submitted");
+			return false;
+		}
 		for(var v in dto){
 			jspr.addParameter(v,dto[v]);
 		}
@@ -49,11 +53,13 @@ MSFT_FileImport_MultiPart.prototype = {
 			}
 			else{
 				//attach file to record provided in targetSysId param
-				if(this.target_record.isValidRecord())
-					target_record = this.target_record.sys_id.toString();
+				var targetgr = new GlideRecord(gr.target_table.name.toString());
+				targetgr.get(this.target_record);
+				if(targetgr.isValidRecord())
+					target_record = targetgr.sys_id.toString();
 				else{
 					this.snLog.logError("Invalid record supplied to attach files");
-					return;
+					return false;
 				}
 			}
 			
@@ -75,7 +81,7 @@ MSFT_FileImport_MultiPart.prototype = {
 				return grjson;
 			}
 			else{
-				this.snLog.logError("Invalid File Configuration Name: "+configName);
+				this.snLog.logError("Invalid File Configuration Name: "+this.configName);
 			}
 		},
 		
@@ -86,7 +92,7 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_created_on>2017-09-26 21:12:14</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>993a458c13a10700e9c059722244b0f4</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>MSFT_FileImport_MultiPart</sys_name>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy>read</sys_policy>
@@ -94,6 +100,6 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sys_script_include_993a458c13a10700e9c059722244b0f4</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-05 04:50:35</sys_updated_on>
+        <sys_updated_on>2017-11-01 06:30:01</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -15,6 +15,7 @@
             <choice>
                 <element label="CSV" value="CSV"/>
                 <element label="Excel(.xlsx/.xls)" value="EXCEL"/>
+                <element label="PDF" value="PDF"/>
                 <element label="XML" value="XML"/>
                 <element label="ZIP" value="ZIP"/>
             </choice>

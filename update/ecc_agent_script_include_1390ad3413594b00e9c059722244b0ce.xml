@@ -13,6 +13,7 @@ MSFT_FileImport_MultiPart.prototype = {
 		this.debug = true; //gs.getProperty("x_kpmg3_mid_server.MSFT.MID.SERVER");
 		this.debugPrefix = "DEBUG-MSFT: ";
 		this.logString = "";
+		this.result = '';
 	},
 	
 	
@@ -22,7 +23,7 @@ MSFT_FileImport_MultiPart.prototype = {
 		var fileListArray = this._getListOfFiles();
 		var buffer = '';
 		var encData = '';
-		var result = '';
+		
 		if(fileListArray.length != 0){
 			for(var i in fileListArray){
 				/*
@@ -33,15 +34,15 @@ MSFT_FileImport_MultiPart.prototype = {
 				this._postAttachment(filePath);
 				
 			}
-			result = 'success';
+			//result = 'success';
 		}
 		else{
 			// no files to transfer
 			this._midLog("No file found to transfer");
-			result = 'failure';
+			this.result = 'failure';
 		}
 		probe.createCDATAElement("LOG", this.logString);
-		return result;
+		return this.result;
 		
 	},
 	_postAttachment: function(filePath) {
@@ -70,7 +71,7 @@ MSFT_FileImport_MultiPart.prototype = {
 			var sn_table_name = new this.StringBody(this.probe_params.target_table, this.ContentType.MULTIPART_FORM_DATA);
 			var sn_table_sys_id = new this.StringBody(this.probe_params.target_record, this.ContentType.MULTIPART_FORM_DATA);
 			this._midLog("builder variables created: table, sys_id: "+sn_table_name+" , "+sn_table_sys_id);
-
+			
 			var builder = this.MultipartEntityBuilder.create();
 			builder.setMode(this.HttpMultipartMode.BROWSER_COMPATIBLE);
 			builder.addPart("table_name", sn_table_name);
@@ -104,7 +105,15 @@ MSFT_FileImport_MultiPart.prototype = {
 			//---Post http request
 			this._midLog("Posting HTTP request...");
 			var response = httpclient.execute(httppost);
+			this._midLog("HTTP POST response code: "+response.getStatusLine().getStatusCode());
+			if(response.getStatusLine().getStatusCode() == 201){
+				this.result = "success";
+			}
+			else{
+				this.result = "failure";
+			}
 			this._midLog("HTTP POST response:"+response);
+			
 			
 			var responseBody = this.EntityUtils.toString(response.getEntity());
 			this._midLog(responseBody);
@@ -191,7 +200,7 @@ MSFT_FileImport_MultiPart.prototype = {
 			for(var bg in fileListArray){
 				this._midLog("File Found: "+fileListArray[bg]);
 			}
-
+			
 			return fileListArray;
 		}
 		catch(e){
@@ -266,7 +275,7 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>1390ad3413594b00e9c059722244b0ce</sys_id>
-        <sys_mod_count>94</sys_mod_count>
+        <sys_mod_count>96</sys_mod_count>
         <sys_name>MSFT_FileImport_MultiPart</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -275,6 +284,6 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>ecc_agent_script_include_1390ad3413594b00e9c059722244b0ce</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-31 22:55:42</sys_updated_on>
+        <sys_updated_on>2017-11-01 06:24:24</sys_updated_on>
     </ecc_agent_script_include>
 </record_update>

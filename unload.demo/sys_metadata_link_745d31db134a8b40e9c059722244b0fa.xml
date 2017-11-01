@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload.demo</directory>
+        <documentkey>2c07223813d94b00e9c059722244b063</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="x_kpmg3_mid_server_file_configuration">
+    <x_kpmg3_mid_server_file_configuration action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <data_source display_value="Incident XML Procesing">01effb7c139d4b00e9c059722244b09b</data_source>
+        <file_name>incident.xml</file_name>
+        <file_selection_criteria>file_name</file_selection_criteria>
+        <file_type>XML</file_type>
+        <folder_location>C:\MidServer\Files\</folder_location>
+        <name>IncidentXML</name>
+        <operation>import_and_transform</operation>
+        <regular_expression/>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-09-17 01:38:33</sys_created_on>
+        <sys_id>2c07223813d94b00e9c059722244b063</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-10-07 01:08:42</sys_updated_on>
+        <target_table display_value="Data Source" name="sys_data_source">61d24d77130332006b2f53722244b080</target_table>
+        <zipped>false</zipped>
+    </x_kpmg3_mid_server_file_configuration>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+        <sys_created_on>2017-10-31 23:47:13</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>745d31db134a8b40e9c059722244b0fa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IncidentXML</sys_name>
+        <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
+        <sys_update_name>sys_metadata_link_745d31db134a8b40e9c059722244b0fa</sys_update_name>
+        <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+        <sys_updated_on>2017-10-31 23:47:13</sys_updated_on>
+        <tablename>x_kpmg3_mid_server_file_configuration</tablename>
+    </sys_metadata_link>
+</record_update>

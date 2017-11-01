@@ -7,7 +7,7 @@
         <action_insert>true</action_insert>
         <action_query>false</action_query>
         <action_update>false</action_update>
-        <active>false</active>
+        <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
         <change_fields>false</change_fields>
@@ -32,7 +32,7 @@
 	//current.table_name == 'sys_data_source' && !gs.getSession().isInteractive()
 	var snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_File Attachment Processor');
 	snLog.includeTimestamp();
-	snLog.logInfo('Begin Triggering Event');
+	snLog.logDebug('Checking if data tranformation required...');
 	var msfi_config = new GlideRecord("x_kpmg3_mid_server_file_configuration");
 	msfi_config.addQuery("operation", "import_and_transform");
 	msfi_config.addQuery("target_table.name", "sys_data_source");
@@ -41,7 +41,7 @@
 	if (msfi_config.next()) {
 		//Trigger event to execute script action which loads and transforms the attached file
 		gs.eventQueue('x_kpmg3_mid_server.msfi.process.ds', msfi_config, msfi_config.data_source.sys_id.toString(), current.sys_id.toString());
-		snLog.logInfo('Event Triggerred');
+		snLog.logDebug('Data transformation is required.Starting Process...');
 	}
 	else{
 		snLog.logError('File configuration or Data source or attachment not found');
@@ -56,7 +56,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>7986b3b8139d4b00e9c059722244b029</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>MSFT_File Attachment Processor</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
@@ -65,7 +65,7 @@
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sys_script_7986b3b8139d4b00e9c059722244b029</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-07 01:34:38</sys_updated_on>
+        <sys_updated_on>2017-11-01 21:59:38</sys_updated_on>
         <template/>
         <when>after</when>
     </sys_script>

@@ -5,7 +5,7 @@
         <condition_script/>
         <description/>
         <event_name>x_kpmg3_mid_server.msfi.process.ds</event_name>
-        <name>MSFI_Process Data Source</name>
+        <name>MSFT_Process Data Source</name>
         <order>100</order>
         <script><![CDATA[//note: servicenow does not support GlideImportSetLoader and GlideImportSetTransformer
 // in scoped application. using global script action currenly
@@ -14,16 +14,14 @@ processDataSource();
 function processDataSource(){
 	//event.parm1 = file configuration object
 	//event.parm2 = attachment record object
-	var snLog = new GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFI_Process Data Source Global');
+	var snLog = new GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_Process Data Source Global');
 	snLog.includeTimestamp();
-	snLog.logInfo('Begin Event Processing');
-	snLog.logInfo('Event.parm1'+event.parm1);
-	snLog.logInfo('Event.parm2'+event.parm2);
 	
 	var sourceDS = new GlideRecord('sys_data_source');
 	sourceDS.get(event.parm1);
-	snLog.logInfo("DS Name: "+sourceDS.name);
+	snLog.logDebug("DataSource Name: "+sourceDS.name);
 	//Delete any other attachments on the data source
+	snLog.logDebug("Deleting attachments from data source expect the recently loaded file");
 	var otherAttachments = new GlideRecord('sys_attachment');
 	otherAttachments.addQuery('table_name', 'sys_data_source');
 	otherAttachments.addQuery('table_sys_id', event.parm1);
@@ -31,16 +29,21 @@ function processDataSource(){
 	otherAttachments.deleteMultiple();
 	
 	//Start loading the data in to an import set
-	//gs.log('Loading File ' + sourceDS.name, 'multiftp');
+	snLog.logDebug("Loading import set...");
 	var loader = new GlideImportSetLoader();
 	var importSetGr = loader.getImportSetGr(sourceDS);
 	var ranload = loader.loadImportSetTable(importSetGr, sourceDS);
-	
-	//gs.log('Running Transform map ' + sourceDS.name, 'multiftp');
+	if(!ranload) {
+		snLog.logDebug('Failed to load import set ' + sourceDS);
+		return;
+	}
+	snLog.logDebug("Import set loaded...");
 	
 	//Start the transform on the import set
-	var t = new global.GlideImportSetTransformer();
-	t.transformAllMaps(importSetGr);
+	snLog.logDebug('Staring Transformation...');
+	var ist = new global.GlideImportSetTransformer();
+	ist.transformAllMaps(importSetGr);
+	snLog.logDebug('Transformation complete');
 }]]></script>
         <synchronous>false</synchronous>
         <sys_class_name>sysevent_script_action</sys_class_name>
@@ -50,8 +53,8 @@ function processDataSource(){
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>bb7873f8139d4b00e9c059722244b0d3</sys_id>
-        <sys_mod_count>15</sys_mod_count>
-        <sys_name>MSFI_Process Data Source</sys_name>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>MSFT_Process Data Source</sys_name>
         <sys_overrides/>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy/>
@@ -59,6 +62,6 @@ function processDataSource(){
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sysevent_script_action_bb7873f8139d4b00e9c059722244b0d3</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-10-07 01:36:41</sys_updated_on>
+        <sys_updated_on>2017-11-01 23:21:39</sys_updated_on>
     </sysevent_script_action>
 </record_update>
