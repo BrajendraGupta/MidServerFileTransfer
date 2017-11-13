@@ -16,7 +16,7 @@
         <script><![CDATA[var snLog = new global.GSLog('x_kpmg3_mid_server.MSFT.DEBUG.STATUS', 'MSFT_ImportFile_Job');
 snLog.includeTimestamp();
 snLog.info("Job executed MSFT_Import_and_attach_File");
-var file = new MSFT_FileImport_MultiPart('NameContainsIncident', "b3f076504750210042bd757f2ede273f").launchProbe();
+var file = new MSFT_FileImport_MultiPart('Attach on incident', "85071a1347c12200e0ef563dbb9a71c1").launchProbe();
 //b3f076504750210042bd757f2ede273f -sys_id of incident record
 ]]></script>
         <sys_class_name>sysauto_script</sys_class_name>
@@ -24,7 +24,7 @@ var file = new MSFT_FileImport_MultiPart('NameContainsIncident', "b3f07650475021
         <sys_created_on>2017-09-17 18:26:09</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>79dd824113d1c7006b2f53722244b042</sys_id>
-        <sys_mod_count>23</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>MSFT_Import_and_attach_File</sys_name>
         <sys_package display_value="Mid Server File Transfer" source="x_kpmg3_mid_server">8591b87813d54b00e9c059722244b0bd</sys_package>
         <sys_policy/>
@@ -32,7 +32,7 @@ var file = new MSFT_FileImport_MultiPart('NameContainsIncident', "b3f07650475021
         <sys_scope display_value="Mid Server File Transfer">8591b87813d54b00e9c059722244b0bd</sys_scope>
         <sys_update_name>sysauto_script_79dd824113d1c7006b2f53722244b042</sys_update_name>
         <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-        <sys_updated_on>2017-11-01 06:30:45</sys_updated_on>
+        <sys_updated_on>2017-11-13 03:36:11</sys_updated_on>
         <upgrade_safe>false</upgrade_safe>
     </sysauto_script>
 </record_update>
