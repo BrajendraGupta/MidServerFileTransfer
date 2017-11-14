@@ -18,19 +18,19 @@ Ensure Global application scope
 2. Click on gear icon on top right corner
 3. this will open system settings popup
 4. Click on devloper tab
-5. Seleciton Global in Application drop down
+5. Select Global in Application drop down
 
 
 Update script includes
 ======================
-Following script includes reside in global scope and their accessibility must be updated to allow access from application scope.
+Following script includes reside in global scope and their accessibility must be updated to allow access from other application scope.
 Script includes:
 	-JavascriptProbe
 	-XMLDocument
 Steps to make change:
 1. Go to list of script include
 2. Search for script include name
-3. Update Accessible from field value to "All Application Scopes"
+3. Update "Accessible from" field value to "All Application Scopes"
 
 Update REST connection timeout properties
 =========================================
@@ -38,16 +38,16 @@ This application uses REST APIs to transfer files. When files are larger it can 
 
 1. Go to System Definition > Transaction Quota Rules
 2. Filter results "Name Starts with REST"
-3. Update "REST Attachment API request timeout" property to 299 seconds for following properties
+3. Update "REST Attachment API request timeout" property to 299 seconds.
 
 
 Create Script action
 =====================
-ServiceNow does not support GlideImportSetLoader and GlideImportSetTransformer classes in application scope. For file transfer from mid server these classes are need. So we will need to create scope file in global scope
+ServiceNow does not support GlideImportSetLoader and GlideImportSetTransformer classes in scoped application. To load the data in import set and transform these classes are needed. So we will need to create a copy of scoped script action file in global scope.
 
 Steps to make change:
 1. Go to script actions and search for "MSFI_Process Data Source"
-2. right click on head and select "insert and stay". This will create copy of script action in global scope
+2. right click on head and select "insert and stay". This will create copy of script action in global scope (ensure that your in global scope)
 3. Change file name to "MSFI_Process Data Source Global" (just to distinguish between two script actions)
 4. Select the checkbox in active field
 5. Save the record.
