@@ -4,62 +4,152 @@
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>name</element>
-            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1b0b9330a000641494885177d512f13</list_id>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2011-04-29 14:36:44</sys_created_on>
-            <sys_id>a1b0b9400a00064152b4d0f4a3eb84f2</sys_id>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>6ee8c514137e43406b2f53722244b06a</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2011-04-29 14:36:44</sys_updated_on>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>active</element>
-            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1b0b9330a000641494885177d512f13</list_id>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2011-04-29 14:36:44</sys_created_on>
-            <sys_id>a1b0b9810a000641349359bd6bb11ebc</sys_id>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>eee8c514137e43406b2f53722244b06a</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2011-04-29 14:36:44</sys_updated_on>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>sys_class_name</element>
-            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1b0b9330a000641494885177d512f13</list_id>
+            <element>condition</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2011-04-29 14:36:44</sys_created_on>
-            <sys_id>a1b0b9820a0006413f07022c148869a1</sys_id>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>62e8c514137e43406b2f53722244b06b</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2011-04-29 14:36:44</sys_updated_on>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>sys_updated_on</element>
-            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">a1b0b9330a000641494885177d512f13</list_id>
+            <element>conditional</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2011-04-29 14:36:44</sys_created_on>
-            <sys_id>a1b0b98e0a0006415f7a1a0e7202f667</sys_id>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>e2e8c514137e43406b2f53722244b06b</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2011-04-29 14:36:44</sys_updated_on>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_as</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>66e8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_as_tz</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>e6e8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_dayofmonth</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>6ae8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_dayofweek</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>eae8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_period</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>6ee8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>run_start</element>
+            <list_id display_value="sysauto" element="NULL" name="sysauto" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">e6e8c514137e43406b2f53722244b06a</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>9</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:03:34</sys_created_on>
+            <sys_id>eee8c514137e43406b2f53722244b06b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:03:34</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -74,7 +164,7 @@
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
             <sys_created_on>2017-09-17 18:25:45</sys_created_on>
-            <sys_customer_update>true</sys_customer_update>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>e2cd82cd1351c7006b2f53722244b073</sys_id>

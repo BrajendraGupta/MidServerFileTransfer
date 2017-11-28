@@ -10,7 +10,7 @@
         <sys_class_name>ecc_agent_jar</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-26 22:03:07</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a0b5d50413e10700e9c059722244b036</sys_id>

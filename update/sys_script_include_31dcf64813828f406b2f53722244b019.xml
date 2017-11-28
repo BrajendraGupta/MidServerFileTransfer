@@ -42,7 +42,7 @@ MSFT_Log.prototype = {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-10-22 02:34:06</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>31dcf64813828f406b2f53722244b019</sys_id>
         <sys_mod_count>23</sys_mod_count>
         <sys_name>MSFT_Log</sys_name>

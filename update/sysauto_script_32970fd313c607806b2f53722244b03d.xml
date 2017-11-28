@@ -21,7 +21,7 @@ var file = new MSFT_FileImport_MultiPart('IncidentXML', '').launchProbe();
         <sys_class_name>sysauto_script</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-11-01 05:11:46</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>32970fd313c607806b2f53722244b03d</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>MSFT_Import_XML_File</sys_name>

@@ -149,7 +149,7 @@
             <sys_class_name>sys_ui_section</sys_class_name>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
             <sys_created_on>2017-10-22 01:52:59</sys_created_on>
-            <sys_customer_update>true</sys_customer_update>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>153a320813828f406b2f53722244b024</sys_id>

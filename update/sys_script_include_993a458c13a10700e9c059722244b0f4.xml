@@ -90,7 +90,7 @@ MSFT_FileImport_MultiPart.prototype = {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-26 21:12:14</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>993a458c13a10700e9c059722244b0f4</sys_id>
         <sys_mod_count>6</sys_mod_count>
         <sys_name>MSFT_FileImport_MultiPart</sys_name>

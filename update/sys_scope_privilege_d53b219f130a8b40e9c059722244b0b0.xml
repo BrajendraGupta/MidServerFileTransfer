@@ -7,7 +7,7 @@
         <sys_class_name>sys_scope_privilege</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-10-31 22:28:04</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>d53b219f130a8b40e9c059722244b0b0</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>ecc_queue</sys_name>

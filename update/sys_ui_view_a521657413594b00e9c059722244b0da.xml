@@ -8,7 +8,7 @@
         <sys_class_name>sys_ui_view</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-16 20:32:13</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>a521657413594b00e9c059722244b0da</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>Sys_popup,discovery</sys_name>

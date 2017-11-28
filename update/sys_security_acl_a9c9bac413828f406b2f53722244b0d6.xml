@@ -12,7 +12,7 @@
         <sys_class_name>sys_security_acl</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-10-22 01:51:05</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>a9c9bac413828f406b2f53722244b0d6</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>x_kpmg3_mid_server_logs</sys_name>

@@ -22,7 +22,7 @@ var file = new MSFT_FileImport_MultiPart('Attach on incident', "85071a1347c12200
         <sys_class_name>sysauto_script</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-17 18:26:09</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>79dd824113d1c7006b2f53722244b042</sys_id>
         <sys_mod_count>25</sys_mod_count>
         <sys_name>MSFT_Import_and_attach_File</sys_name>

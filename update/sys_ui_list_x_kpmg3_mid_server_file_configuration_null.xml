@@ -4,122 +4,152 @@
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element>name</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>aa30963c13994b00e9c059722244b041</sys_id>
+            <sys_created_on>2017-11-28 19:02:22</sys_created_on>
+            <sys_id>59a88154137e43406b2f53722244b0c9</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:22</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>file_name</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>active</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>1</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>2230963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:22</sys_created_on>
+            <sys_id>51a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:22</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>folder_location</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>data_source</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>2</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>a230963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:22</sys_created_on>
+            <sys_id>d1a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:22</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>file_selection_criteria</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>file_name</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>3</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>2630963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>55a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>file_type</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>file_selection_criteria</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>4</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>a630963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>d5a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>target_table</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>file_type</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>5</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>2a30963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>59a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>data_source</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>folder_location</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>6</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>aa30963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>d9a88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list_element action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
-            <element>active</element>
-            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2230963c13994b00e9c059722244b041</list_id>
+            <element>operation</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
             <max_value>false</max_value>
             <min_value>false</min_value>
             <position>7</position>
             <sum>false</sum>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
-            <sys_created_on>2017-09-16 23:57:54</sys_created_on>
-            <sys_id>2e30963c13994b00e9c059722244b042</sys_id>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>5da88154137e43406b2f53722244b0ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
-            <sys_updated_on>2017-09-16 23:57:54</sys_updated_on>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>regular_expression</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>dda88154137e43406b2f53722244b0ca</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>target_table</element>
+            <list_id display_value="x_kpmg3_mid_server_file_configuration" element="NULL" name="x_kpmg3_mid_server_file_configuration" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">05a88154137e43406b2f53722244b0c8</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>9</position>
+            <sum>false</sum>
+            <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
+            <sys_created_on>2017-11-28 19:02:23</sys_created_on>
+            <sys_id>51a88154137e43406b2f53722244b0cb</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>brajendragupta@kpmg.com</sys_updated_by>
+            <sys_updated_on>2017-11-28 19:02:23</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -134,7 +164,7 @@
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
             <sys_created_on>2017-10-07 01:08:31</sys_created_on>
-            <sys_customer_update>true</sys_customer_update>
+            <sys_customer_update>false</sys_customer_update>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>fb20a59f13ad8b00e9c059722244b01f</sys_id>

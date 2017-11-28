@@ -42,7 +42,7 @@
         <sys_class_name>sys_data_source</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-17 08:06:25</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>01effb7c139d4b00e9c059722244b09b</sys_id>
         <sys_mod_count>6</sys_mod_count>
         <sys_name>MSFT_Incident XML Procesing</sys_name>

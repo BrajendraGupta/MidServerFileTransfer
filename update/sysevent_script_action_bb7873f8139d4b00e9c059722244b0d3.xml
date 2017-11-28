@@ -49,7 +49,7 @@ function processDataSource(){
         <sys_class_name>sysevent_script_action</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-17 07:35:10</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>bb7873f8139d4b00e9c059722244b0d3</sys_id>

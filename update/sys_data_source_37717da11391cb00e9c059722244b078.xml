@@ -42,7 +42,7 @@
         <sys_class_name>sys_data_source</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-19 05:39:05</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>37717da11391cb00e9c059722244b078</sys_id>
         <sys_mod_count>3</sys_mod_count>
         <sys_name>MSFT_Incident CSV Procesing</sys_name>

@@ -19,7 +19,7 @@
         <sys_class_name>sys_transform_entry</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-17 08:09:47</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>3fc04ccd139d4b00e9c059722244b04f</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>u_due_date</sys_name>

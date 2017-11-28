@@ -9,7 +9,7 @@
         <sys_class_name>sysevent_register</sys_class_name>
         <sys_created_by>brajendragupta@kpmg.com</sys_created_by>
         <sys_created_on>2017-09-17 07:33:10</sys_created_on>
-        <sys_customer_update>true</sys_customer_update>
+        <sys_customer_update>false</sys_customer_update>
         <sys_id>3f08bfb8139d4b00e9c059722244b044</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>x_kpmg3_mid_server.msfi.process.ds</sys_name>
